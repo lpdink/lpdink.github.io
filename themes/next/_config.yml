@@ -619,17 +619,17 @@ quicklink:
 # Use Animate.css to animate everything.
 # For more information: https://animate.style
 motion:
-  enable: false
-  async: true
+  enable: true
+  async: false
   transition:
     # All available transition variants: https://theme-next.js.org/animate/
-    menu_item: fadeIn
+    menu_item: fadeInDown
     post_block: fadeIn
-    post_header: fadeIn
-    post_body: fadeIn
-    coll_header: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
     # Only for Pisces | Gemini.
-    sidebar: fadeIn
+    sidebar: fadeInUp
 
 # Progress bar in the top during page loading.
 # For more information: https://github.com/CodeByZach/pace

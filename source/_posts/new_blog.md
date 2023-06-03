@@ -1,7 +1,5 @@
 ---
 title: Hexo + Github Page部署博客
-categories:
-- 教程
 tags:
 - 教程
 - 文档
@@ -58,6 +56,14 @@ sed -i 's/theme: landscape/theme: next/g' _config.yml
 ```
 
 Next自己也提供四种风格变种供我们使用，我们选择Gemini，这种风格在多个blog之间的划分明显，更清晰，也更沉稳，非常coooooool。手动打开themes/next/_config.yml修改吧！人不要太懒了。
+
+其他的配置，有的没的，next提供了许多选择，可以参考 [next仓库](https://github.com/next-theme/hexo-theme-next/tree/master) 看看。  
+
+我也稍微做了一些调整，遗憾的是，不能做的非常漂亮，指哪打哪，对前端还是不了解，我想要的标题字体加粗，字体阴影和选中字体颜色方案都不太好调整。  
+
+## 发布到GitHub Pages
+
+这里主要参考[hexo文档](https://hexo.io/zh-cn/docs/github-pages)的说明去做，需要注意的是，hexo给了一个GitHub-action的xml，GitHub自己也提供了方便添加的action。建议用hexo给的。
 
 
 
