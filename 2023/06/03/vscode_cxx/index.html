@@ -21,29 +21,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lpdink.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="写了蛮多博客了，已经，一直放在master里，感觉不够cool，这周六想起来，好像github提供免费的静态网页托管服务，不用自己的服务器和域名，很不错，准备搞搞，以便之后的博客能比较cool地展示出去。本文是教程。 笔者的环境是wsl-ubuntu，毫无前端开发经验，故也包含nodejs等的安装配置环节，非常适合和我一样，在前端方面一无所知的朋友们参考经验。 让我们开始吧！">
+    <meta name="description" content="本文将帮助你在VScode中进行cmake的C++工程的可视化调试。参考cmake tools 官方教程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo + Github Page部署博客">
-<meta property="og:url" content="https://lpdink.github.io/2023/06/03/new_blog/index.html">
+<meta property="og:title" content="在Vscode中使用C++调试">
+<meta property="og:url" content="https://lpdink.github.io/2023/06/03/vscode_cxx/index.html">
 <meta property="og:site_name" content="lpdink的博客">
-<meta property="og:description" content="写了蛮多博客了，已经，一直放在master里，感觉不够cool，这周六想起来，好像github提供免费的静态网页托管服务，不用自己的服务器和域名，很不错，准备搞搞，以便之后的博客能比较cool地展示出去。本文是教程。 笔者的环境是wsl-ubuntu，毫无前端开发经验，故也包含nodejs等的安装配置环节，非常适合和我一样，在前端方面一无所知的朋友们参考经验。 让我们开始吧！">
+<meta property="og:description" content="本文将帮助你在VScode中进行cmake的C++工程的可视化调试。参考cmake tools 官方教程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-03T08:29:51.900Z">
 <meta property="article:modified_time" content="2023-06-03T08:29:51.900Z">
 <meta property="article:author" content="lpdink">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="文档">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://lpdink.github.io/2023/06/03/new_blog/">
+<link rel="canonical" href="https://lpdink.github.io/2023/06/03/vscode_cxx/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2023/06/03/new_blog/","path":"2023/06/03/new_blog/","title":"Hexo + Github Page部署博客"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2023/06/03/vscode_cxx/","path":"2023/06/03/vscode_cxx/","title":"在Vscode中使用C++调试"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hexo + Github Page部署博客 | lpdink的博客</title>
+<title>在Vscode中使用C++调试 | lpdink的博客</title>
   
 
 
@@ -116,7 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85nodejs-amp-amp-npm%E6%8D%A2%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">安装nodejs &amp;&amp; npm换源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Hexo"><span class="nav-number">2.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">更换主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0GitHub-Pages"><span class="nav-number">4.</span> <span class="nav-text">发布到GitHub Pages</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">选择编译器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">选择编译模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%EF%BC%8C%E8%BF%90%E8%A1%8C%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">编译，运行与调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">6.</span> <span class="nav-text">注意</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +174,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/06/03/new_blog/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/06/03/vscode_cxx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -187,12 +187,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hexo + Github Page部署博客 | lpdink的博客">
+      <meta itemprop="name" content="在Vscode中使用C++调试 | lpdink的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo + Github Page部署博客
+          在Vscode中使用C++调试
         </h1>
 
         <div class="post-meta-container">
@@ -205,6 +205,15 @@
 
       <time title="创建时间：2023-06-03 08:29:51" itemprop="dateCreated datePublished" datetime="2023-06-03T08:29:51+00:00">2023-06-03</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -215,29 +224,16 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>写了蛮多博客了，已经，一直放在master里，感觉不够cool，这周六想起来，好像github提供免费的静态网页托管服务，不用自己的服务器和域名，很不错，准备搞搞，以便之后的博客能比较cool地展示出去。本文是教程。</p>
-<p>笔者的环境是wsl-ubuntu，毫无前端开发经验，故也包含nodejs等的安装配置环节，非常适合和我一样，在前端方面一无所知的朋友们参考经验。</p>
-<p>让我们开始吧！</p>
+    <div class="post-body" itemprop="articleBody"><p>本文将帮助你在VScode中进行cmake的C++工程的可视化调试。<br>参考cmake tools <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/CMake-linux">官方教程</a></p>
 <span id="more"></span>
 
-<h2 id="安装nodejs-amp-amp-npm换源"><a href="#安装nodejs-amp-amp-npm换源" class="headerlink" title="安装nodejs &amp;&amp; npm换源"></a>安装nodejs &amp;&amp; npm换源</h2><p>hexo要求nodejs 14，但是apt install nodejs目前得到的是10版本，我们需要额外添加源：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -</span><br><span class="line">sudo apt-get install nodejs -y</span><br><span class="line"><span class="comment"># npm换源tb.</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vscode</span><br><span class="line">cmake</span><br><span class="line">gdb</span><br><span class="line">插件: C/C++</span><br><span class="line">插件: CMake Tools</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><p>Hexo提供快捷的博客前端解决方案，下下来就能用了。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>到这里，由于我们已经有了nodejs作为服务器，hexo提供了前端工程，我们已经可以直接将它运行起来了。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>这将在localhost:4000运行服务器，代理前端页面。</p>
-<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>来都来了，用默认主题实在太不coooool了，我们换一个好看的。</p>
-<p>我问了问NewBing，newbing说Next这个主题很受欢迎，我看了一下确实还行，<a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next">Next主页</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone into theme folder:</span></span><br><span class="line">git <span class="built_in">clone</span> git@github.com:next-theme/hexo-theme-next.git themes/next</span><br><span class="line"><span class="comment"># change nexo sheme to next.</span></span><br><span class="line">sed -i <span class="string">&#x27;s/theme: landscape/theme: next/g&#x27;</span> _config.yml</span><br></pre></td></tr></table></figure>
-
-<p>Next自己也提供四种风格变种供我们使用，我们选择Gemini，这种风格在多个blog之间的划分明显，更清晰，也更沉稳，非常coooooool。手动打开themes&#x2F;next&#x2F;_config.yml修改吧！人不要太懒了。</p>
-<p>其他的配置，有的没的，next提供了许多选择，可以参考 <a target="_blank" rel="noopener" href="https://github.com/next-theme/hexo-theme-next/tree/master">next仓库</a> 看看。  </p>
-<p>我也稍微做了一些调整，遗憾的是，不能做的非常漂亮，指哪打哪，对前端还是不了解，我想要的标题字体加粗，字体阴影和选中字体颜色方案都不太好调整。  </p>
-<h2 id="发布到GitHub-Pages"><a href="#发布到GitHub-Pages" class="headerlink" title="发布到GitHub Pages"></a>发布到GitHub Pages</h2><p>这里主要参考<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/github-pages">hexo文档</a>的说明去做，需要注意的是，hexo给了一个GitHub-action的xml，GitHub自己也提供了方便添加的action。建议用hexo给的。</p>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>要快速创建一个cmake文件，在vscode中输入命令cmake:quick start(通过ctrl+shift+P呼出vscode命令界面)<br>这将创建一个包含基本配置的CMakeLists.txt和main.cpp文件。  </p>
+<h2 id="选择编译器"><a href="#选择编译器" class="headerlink" title="选择编译器"></a>选择编译器</h2><p>可以通过命令cmake select a kit来扫描并选择一个编译器，或者点击vscode下方的扳手图标来选择编译器。<br>如果你的项目没有配置cmake.sourceDirectory，可以在.vscode&#x2F;settings.json下配置，索引到CMakeLists.txt所在的目录路径即可。<br>或者按照不时出现的提示，选择根CMakeLists.txt文件。  </p>
+<h2 id="选择编译模式"><a href="#选择编译模式" class="headerlink" title="选择编译模式"></a>选择编译模式</h2><p>可以通过vscode下方的警告符号选择，或者输入命令cmake select variant。提供了Debug，Release，MinSizeRel，RelWithDebugInfo四种选项。<br>不同选项的附加命令，可以在cmake ui中查看。  </p>
+<h2 id="编译，运行与调试"><a href="#编译，运行与调试" class="headerlink" title="编译，运行与调试"></a>编译，运行与调试</h2><p>可以通过下方的build, 调试符号与倒三角(运行符号)进行，也可以通过命令。<br>可以直接在cmakelists.txt涉及的源文件中，在一行代码前单击，出现红点来插入断点。  </p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>对多CMakeLists.txt的支持很差，不支持平行项目。<br>要debug时，variant模式请选择debug，否则可能出现断点无法激活的问题。  </p>
 
     </div>
 
@@ -248,20 +244,17 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
-              <a href="/tags/%E6%96%87%E6%A1%A3/" rel="tag"><i class="fa fa-tag"></i> 文档</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/06/03/use_cmake/" rel="prev" title="CMake教程">
-                  <i class="fa fa-chevron-left"></i> CMake教程
-                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/06/03/learn_go/" rel="next" title="从零开始的Go语言笔记">
-                  从零开始的Go语言笔记 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/06/03/use_cmake/" rel="next" title="CMake教程">
+                  CMake教程 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

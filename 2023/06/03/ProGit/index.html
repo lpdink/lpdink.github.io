@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lpdink.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="通过本文了解不那么常用的git命令（尤其像git rebase，git merge和cherry pick）的使用吧，不用再总被diss是麻瓜了！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ProGit">
+<meta property="og:url" content="https://lpdink.github.io/2023/06/03/ProGit/index.html">
+<meta property="og:site_name" content="lpdink的博客">
+<meta property="og:description" content="通过本文了解不那么常用的git命令（尤其像git rebase，git merge和cherry pick）的使用吧，不用再总被diss是麻瓜了！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-03T08:29:51.900Z">
+<meta property="article:modified_time" content="2023-06-03T08:29:51.900Z">
+<meta property="article:author" content="lpdink">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lpdink.github.io/2023/06/03/ProGit/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2023/06/03/ProGit/","path":"2023/06/03/ProGit/","title":"ProGit"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ProGit | lpdink的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">lpdink的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">来点好玩的！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">11</span></a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E8%A1%A5%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="nav-number">1.</span> <span class="nav-text">修补最后一次提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">远程操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#checkout%E5%88%B0%E5%8E%86%E5%8F%B2%E6%8F%90%E4%BA%A4"><span class="nav-number">3.</span> <span class="nav-text">checkout到历史提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E5%88%AB%E5%90%8D"><span class="nav-number">4.</span> <span class="nav-text">git别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-branch"><span class="nav-number">5.</span> <span class="nav-text">git branch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">5.1.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%95%E7%A4%BA%E4%BF%A1%E6%81%AF"><span class="nav-number">5.2.</span> <span class="nav-text">展示信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rebase"><span class="nav-number">5.3.</span> <span class="nav-text">rebase</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cherry-pick"><span class="nav-number">5.4.</span> <span class="nav-text">cherry-pick</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="lpdink"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">lpdink</p>
+  <div class="site-description" itemprop="description">做更好的工作</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lpdink" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lpdink" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/06/03/ProGit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="lpdink">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lpdink的博客">
+      <meta itemprop="description" content="做更好的工作">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ProGit | lpdink的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ProGit
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-03 08:29:51" itemprop="dateCreated datePublished" datetime="2023-06-03T08:29:51+00:00">2023-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>通过本文了解不那么常用的git命令（尤其像git rebase，git merge和cherry pick）的使用吧，不用再总被diss是麻瓜了！</p>
+<span id="more"></span>
+
+<blockquote>
+<p>本文参考progit</p>
+</blockquote>
+<h2 id="修补最后一次提交"><a href="#修补最后一次提交" class="headerlink" title="修补最后一次提交"></a>修补最后一次提交</h2><p>常见的情况是，手快git commit后，执行git status，发现有几个文件漏交了，或者最后一次git commit的log写错了，如果在以前，我会：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset last_commit_hash</span><br><span class="line"><span class="comment"># do right git command</span></span><br><span class="line">git commit -m <span class="string">&quot;right log&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>但更好的解决方案是：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># do right git command, like git add forget_file</span></span><br><span class="line">git commit --amend -m <span class="string">&quot;new log&quot;</span></span><br><span class="line"><span class="comment"># 你也可以不加-m，这将使用之前的log，如果log没有错误的话。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="远程操作"><a href="#远程操作" class="headerlink" title="远程操作"></a>远程操作</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 远程操作</span></span><br><span class="line">git remote --<span class="built_in">help</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看远程配置</span></span><br><span class="line">git remote -v --verbose</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加远程, 添加多个远程是很有用的，push和pull默认用origin，你可以给origin配置ssh，另起一个名字（如origin_http)，用于http方式</span></span><br><span class="line"><span class="comment"># 或者，可以推到多个远程仓库</span></span><br><span class="line">git remote add remote_name remote_url/ssh</span><br><span class="line"><span class="comment"># 其他的rename和remove等可以在help里看到</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送tag到远程</span></span><br><span class="line">git push remote_name(origin) tag_name</span><br><span class="line"><span class="comment"># 全部tag</span></span><br><span class="line">git push remote_name --tags</span><br><span class="line"><span class="comment"># 删除tag</span></span><br><span class="line">git push remote_name --delete tagname/branch_name</span><br></pre></td></tr></table></figure>
+
+<h2 id="checkout到历史提交"><a href="#checkout到历史提交" class="headerlink" title="checkout到历史提交"></a>checkout到历史提交</h2><p>我之前这样做：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch new_branch</span><br><span class="line">git checkout new_branch</span><br><span class="line">git reset commit_hash --hard</span><br></pre></td></tr></table></figure>
+
+<p>但是最好：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b new_branch tag_name/commit_hash</span><br><span class="line"><span class="comment"># 如果不添加commit_hash/tag_name，会用当前的最后一次提交，建议用这种方法替代git branch和git checkout 两句命令</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>建议常用这一命令，这帮助我们更好地模块开发，或探索模块的作用。</p>
+<h2 id="git别名"><a href="#git别名" class="headerlink" title="git别名"></a>git别名</h2><p>你可以设置git的命令别名：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.ci commit</span><br><span class="line">git config --global alias.st status</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以用git ci替代git commit了，不过我不这么设置。</p>
+<h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果branch_name分支是当前分支(head指向)的直接后继，head会直接移动到branch_name分支</span></span><br><span class="line">git merge branch_name</span><br><span class="line"><span class="comment"># 如果你merge了，不需要临时分支，可以删除它了</span></span><br><span class="line">git branch -d branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果commit冲突了，git merge会帮你生成冲突处理相关的代码，等待你解决冲突。</span></span><br><span class="line"><span class="comment"># 出现冲突时的工作流：</span></span><br><span class="line">git merge branch_name</span><br><span class="line"><span class="comment"># fix conflict</span></span><br><span class="line">git add conflict.file</span><br><span class="line">git commit -m <span class="string">&quot;merge: fix conflict&quot;</span></span><br><span class="line"><span class="comment"># 解决冲突需要一次额外的git add和git commit，解决冲突后，冲突的两个commit log都会保留，且以你解决冲突的commit作为head指向</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="展示信息"><a href="#展示信息" class="headerlink" title="展示信息"></a>展示信息</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git branch -v <span class="comment"># 展示分支们的最后一次提交</span></span><br><span class="line">git branch --merged <span class="comment"># 查看已经合并到当前分支的分支</span></span><br><span class="line">git branch --no-merged <span class="comment"># 查看没合并的</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p>rebase的直接作用是将某一分支的更改 <strong>应用</strong> 到当前分支，最常用的情况是，如果分支new_feat希望合并到master，但是check到new_feat后的这段时间，master有更新，如果直接在master上merge new_feat分支，就会出现两个分支并行的情况（好处是commit严格按照时间排序了，但这可能是坏处）。<br>因此，先在new_feat分支上，git rebase master，将master这段时间的更改应用到本分支。这会将master的更改放在new_feat的任何更改之前，之后再追加new_feat的提交。（这会打乱commit的时间顺序）</p>
+<p>总之，rebase的作用主要是避免commit历史上出现复杂的多线并进的情况，保证git commit history是一条直线。  </p>
+<p>工作流：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># new_feat 要进入master:</span></span><br><span class="line">git checkout new_feat</span><br><span class="line">git rebase master</span><br><span class="line">git checkout master</span><br><span class="line">git merge new_feat</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>关于rebase存在一个警告：不要对已经推送到远程仓库的提交rebase，即，不要调整他们的提交线，这会破坏其他开发者的base。  </p>
+<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>cherry-pick是将其他分支的某个提交直接拿过来，十分方便。<br>这是某种拷贝，也就是说，cherry-pick过来的commit是一个新的commit，如果new分支与master分支只有最新一次提交不同，你cherry-pick了这个提交，那么再merge new到master时，会发现出现了两次最后一次提交。  </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick commit_hash</span><br><span class="line"><span class="comment"># cherry-pick来的commit的hash是新的hash</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
+              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/03/WSL/" rel="prev" title="WSL：Windows下的轻量linux系统">
+                  <i class="fa fa-chevron-left"></i> WSL：Windows下的轻量linux系统
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lpdink</span>
+</div>
+  <div class="powered-by">感谢 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 提供博客支持！
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+
+</body>
+</html>
