@@ -21,29 +21,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"lpdink.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="go在web开发上的优势无需多言，作为新兴语言，没有java那样沉重的历史包袱（与相当多的过度设计），适合作为高性能web服务端开发的工具语言。docker, k8s等明星项目为go在云计算方向的应用铺平了道路，使得它在足够简单的基础下，又具备很高的上限。   以上都足以作为笔者（及读者你）开始学习go的原因：它十分简单，高效开发，性能强劲，在部署上的便利性令人震撼。">
+    <meta name="description" content="本文将帮助你在VScode中进行cmake的C++工程的可视化调试。参考cmake tools 官方教程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从零开始的Go语言笔记">
-<meta property="og:url" content="https://lpdink.github.io/2023/06/09/learn_go/index.html">
+<meta property="og:title" content="在Vscode中使用C++调试">
+<meta property="og:url" content="https://lpdink.github.io/2023/06/10/vscode_cxx/index.html">
 <meta property="og:site_name" content="lpdink的博客">
-<meta property="og:description" content="go在web开发上的优势无需多言，作为新兴语言，没有java那样沉重的历史包袱（与相当多的过度设计），适合作为高性能web服务端开发的工具语言。docker, k8s等明星项目为go在云计算方向的应用铺平了道路，使得它在足够简单的基础下，又具备很高的上限。   以上都足以作为笔者（及读者你）开始学习go的原因：它十分简单，高效开发，性能强劲，在部署上的便利性令人震撼。">
+<meta property="og:description" content="本文将帮助你在VScode中进行cmake的C++工程的可视化调试。参考cmake tools 官方教程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-09T11:24:20.241Z">
-<meta property="article:modified_time" content="2023-06-09T11:24:20.241Z">
+<meta property="article:published_time" content="2023-06-10T15:15:47.893Z">
+<meta property="article:modified_time" content="2023-06-10T15:15:32.000Z">
 <meta property="article:author" content="lpdink">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="golang">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://lpdink.github.io/2023/06/09/learn_go/">
+<link rel="canonical" href="https://lpdink.github.io/2023/06/10/vscode_cxx/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2023/06/09/learn_go/","path":"2023/06/09/learn_go/","title":"从零开始的Go语言笔记"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2023/06/10/vscode_cxx/","path":"2023/06/10/vscode_cxx/","title":"在Vscode中使用C++调试"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>从零开始的Go语言笔记 | lpdink的博客</title>
+<title>在Vscode中使用C++调试 | lpdink的博客</title>
   
 
 
@@ -116,7 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install%E6%8D%A2%E6%BA%90"><span class="nav-number">2.</span> <span class="nav-text">install换源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.</span> <span class="nav-text">Hello World</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BE%9D%E8%B5%96%E8%BF%BD%E8%B8%AA"><span class="nav-number">3.1.</span> <span class="nav-text">启动依赖追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">src与执行</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">选择编译器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%BC%96%E8%AF%91%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">选择编译模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%EF%BC%8C%E8%BF%90%E8%A1%8C%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">编译，运行与调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">6.</span> <span class="nav-text">注意</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +174,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/06/09/learn_go/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/06/10/vscode_cxx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -187,12 +187,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="从零开始的Go语言笔记 | lpdink的博客">
+      <meta itemprop="name" content="在Vscode中使用C++调试 | lpdink的博客">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          从零开始的Go语言笔记
+          在Vscode中使用C++调试
         </h1>
 
         <div class="post-meta-container">
@@ -202,8 +202,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-06-09 11:24:20" itemprop="dateCreated datePublished" datetime="2023-06-09T11:24:20+00:00">2023-06-09</time>
+      <time title="创建时间：2023-06-10 15:15:47 / 修改时间：15:15:32" itemprop="dateCreated datePublished" datetime="2023-06-10T15:15:47+00:00">2023-06-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -211,7 +212,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+          <a href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">开发工具</span></a>
         </span>
     </span>
 
@@ -224,32 +225,16 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>go在web开发上的优势无需多言，作为新兴语言，没有java那样沉重的历史包袱（与相当多的过度设计），适合作为高性能web服务端开发的工具语言。docker, k8s等明星项目为go在云计算方向的应用铺平了道路，使得它在足够简单的基础下，又具备很高的上限。  </p>
-<p>以上都足以作为笔者（及读者你）开始学习go的原因：它十分简单，高效开发，性能强劲，在部署上的便利性令人震撼。  </p>
-<span id="more"></span>  
+    <div class="post-body" itemprop="articleBody"><p>本文将帮助你在VScode中进行cmake的C++工程的可视化调试。<br>参考cmake tools <a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/cpp/CMake-linux">官方教程</a></p>
+<span id="more"></span>
 
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>笔者选择在ubuntu下进行go开发，vscode提供ide支持。<br>访问 <a target="_blank" rel="noopener" href="https://go.dev/">go开发者官网</a> 获取最新提供的稳定版：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://go.dev/dl/go1.19.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vscode</span><br><span class="line">cmake</span><br><span class="line">gdb</span><br><span class="line">插件: C/C++</span><br><span class="line">插件: CMake Tools</span><br></pre></td></tr></table></figure>
 
-<p>将它解压到&#x2F;usr&#x2F;local下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">先确保/usr/local下没有go目录，可以用<span class="built_in">rm</span> -rf /usr/local/go删除。否则会破坏go安装。</span></span><br><span class="line">sudo tar -C /usr/local -xzf go1.19.3.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>添加到环境变量：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PATH</span>:/usr/local/go/bin&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>查看go版本</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br><span class="line"><span class="comment"># go version go1.19.3 linux/amd64</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="install换源"><a href="#install换源" class="headerlink" title="install换源"></a>install换源</h2><p>go 1.13以上：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go env -w GO111MODULE=on</span><br><span class="line">go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct</span><br></pre></td></tr></table></figure>
-
-<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><h3 id="启动依赖追踪"><a href="#启动依赖追踪" class="headerlink" title="启动依赖追踪"></a>启动依赖追踪</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go mod init hello_world <span class="comment"># 最后一项是你的项目名</span></span><br></pre></td></tr></table></figure>
-
-<p>这将在当前目录下创建go.mod文件，用于保存项目依赖。</p>
-<h3 id="src与执行"><a href="#src与执行" class="headerlink" title="src与执行"></a>src与执行</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main <span class="comment">// 类似namespace?</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span> <span class="comment">// 标准库，包括格式化字符串和打印到终端</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run .</span><br></pre></td></tr></table></figure>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><p>要快速创建一个cmake文件，在vscode中输入命令cmake:quick start(通过ctrl+shift+P呼出vscode命令界面)<br>这将创建一个包含基本配置的CMakeLists.txt和main.cpp文件。  </p>
+<h2 id="选择编译器"><a href="#选择编译器" class="headerlink" title="选择编译器"></a>选择编译器</h2><p>可以通过命令cmake select a kit来扫描并选择一个编译器，或者点击vscode下方的扳手图标来选择编译器。<br>如果你的项目没有配置cmake.sourceDirectory，可以在.vscode&#x2F;settings.json下配置，索引到CMakeLists.txt所在的目录路径即可。<br>或者按照不时出现的提示，选择根CMakeLists.txt文件。  </p>
+<h2 id="选择编译模式"><a href="#选择编译模式" class="headerlink" title="选择编译模式"></a>选择编译模式</h2><p>可以通过vscode下方的警告符号选择，或者输入命令cmake select variant。提供了Debug，Release，MinSizeRel，RelWithDebugInfo四种选项。<br>不同选项的附加命令，可以在cmake ui中查看。  </p>
+<h2 id="编译，运行与调试"><a href="#编译，运行与调试" class="headerlink" title="编译，运行与调试"></a>编译，运行与调试</h2><p>可以通过下方的build, 调试符号与倒三角(运行符号)进行，也可以通过命令。<br>可以直接在cmakelists.txt涉及的源文件中，在一行代码前单击，出现红点来插入断点。  </p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>对多CMakeLists.txt的支持很差，不支持平行项目。<br>要debug时，variant模式请选择debug，否则可能出现断点无法激活的问题。  </p>
 
     </div>
 
@@ -260,20 +245,20 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
-              <a href="/tags/golang/" rel="tag"><i class="fa fa-tag"></i> golang</a>
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/06/09/new_blog/" rel="prev" title="Hexo + Github Page部署博客">
-                  <i class="fa fa-chevron-left"></i> Hexo + Github Page部署博客
+                <a href="/2023/06/10/jidu/hello_hexagon/" rel="prev" title="Hello Hexagon">
+                  <i class="fa fa-chevron-left"></i> Hello Hexagon
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/06/09/first_pc/" rel="next" title="记第一次装机：选型，购买与组装测试">
-                  记第一次装机：选型，购买与组装测试 <i class="fa fa-chevron-right"></i>
+                <a href="/2023/06/10/use_cmake/" rel="next" title="CMake教程">
+                  CMake教程 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
