@@ -87,7 +87,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li>
   </ul>
 </nav>
 
@@ -126,7 +126,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -159,6 +159,110 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/2024-07/0713/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="lpdink">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lpdink的博客">
+      <meta itemprop="description" content="做更好的工作">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | lpdink的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/13/2024-07/0713/" class="post-title-link" itemprop="url">拿到一台机器后快速捕获信息的脚本</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 12:02:26" itemprop="dateModified" datetime="2024-07-13T12:02:26+00:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/tricks/" itemprop="url" rel="index"><span itemprop="name">tricks</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我一直想写个脚本，拿到一台机器后，能快速捕获一些信息，比如：</p>
+<ul>
+<li>是否是容器环境？如果是，是否具备嵌套虚拟化能力？</li>
+<li>硬件信息：<ul>
+<li>CPU型号，核心数。</li>
+<li>GPU型号，数量。</li>
+<li>内存大小。</li>
+<li>挂载硬盘数量，挂载磁盘的IO速度，HOME目录及挂载目录外存大小。</li>
+</ul>
+</li>
+<li>网络：<ul>
+<li>局域网IP。</li>
+<li>公网IP。</li>
+<li>公网网速。</li>
+<li>默认网关。</li>
+<li>端口占用情况。（嗅探本机服务）</li>
+<li>本机端口开放情况。</li>
+</ul>
+</li>
+<li>用户权限<ul>
+<li>当前用户所在组。（有没有docker和sudo权限）</li>
+</ul>
+</li>
+</ul>
+<p>通义千问帮我写了一版，我打算执行看看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查是否在容器内</span></span><br><span class="line">is_container=$(grep -q <span class="string">&quot;docker\|lxc&quot;</span> /proc/1/cgroup &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;Yes&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;No&quot;</span>)</span><br><span class="line">nested_virtualization=$(egrep -q <span class="string">&#x27;amd-v|svm&#x27;</span> /sys/module/kvm_intel/parameters/nested &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;Yes&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;No&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 硬件信息</span></span><br><span class="line">cpu_model=$(<span class="built_in">cat</span> /proc/cpuinfo | grep name | <span class="built_in">cut</span> -f2 -d: | <span class="built_in">uniq</span> -c)</span><br><span class="line">cpu_cores=$(<span class="built_in">nproc</span> --all)</span><br><span class="line">gpu_info=$(lspci | grep VGA)</span><br><span class="line">memory_size=$(free -m -h)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 硬盘信息</span></span><br><span class="line">disk_info=$(lsblk -d -o NAME,FSTYPE,LABEL,SIZE,TYPE,PKNAME,MOUNTPOINT | grep disk)</span><br><span class="line"><span class="comment"># disk_speed=$(sudo hdparm -Tt /dev/sda | grep Timing)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络信息</span></span><br><span class="line">lan_ip=$(hostname -I | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line">public_ip=$(curl -s ifconfig.me)</span><br><span class="line"><span class="comment"># public_speed=$(speedtest-cli --simple | grep Download)</span></span><br><span class="line">gateway=$(ip route | grep default | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>)</span><br><span class="line">port_usage=$(netstat -tuln | grep LISTEN)</span><br><span class="line"><span class="comment"># open_ports=$(ss -ln | awk &#x27;&#123;print $4&#125;&#x27; | cut -d: -f2 | sort -n | uniq)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户权限</span></span><br><span class="line">user_groups=$(<span class="built_in">groups</span>)</span><br><span class="line">has_docker_perms=$(grep docker /etc/group | grep -w $(<span class="built_in">whoami</span>) &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;Yes&quot;</span> || <span class="built_in">echo</span> <span class="string">&quot;No&quot;</span>)</span><br><span class="line"><span class="comment"># has_sudo_perms=$(id -nu $(id -u) | grep sudo &amp;&amp; echo &quot;Yes&quot; || echo &quot;No&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出结果</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Container Environment: <span class="variable">$is_container</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Nested Virtualization: <span class="variable">$nested_virtualization</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;CPU Model: <span class="variable">$cpu_model</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;CPU Cores: <span class="variable">$cpu_cores</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;GPU Info: <span class="variable">$gpu_info</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Memory Size: <span class="variable">$memory_size</span> MB&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Disk Info: <span class="variable">$disk_info</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Disk Speed: <span class="variable">$disk_speed</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;LAN IP: <span class="variable">$lan_ip</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Public IP: <span class="variable">$public_ip</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Public Speed: <span class="variable">$public_speed</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Default Gateway: <span class="variable">$gateway</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Port Usage: <span class="variable">$port_usage</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Open Ports: <span class="variable">$open_ports</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;User Groups: <span class="variable">$user_groups</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Docker Permissions: <span class="variable">$has_docker_perms</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Sudo Permissions: <span class="variable">$has_sudo_perms</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>有点东西，大部分是对的，不过，大部分好像我都不咋需要，真要查的时候，大概也不会做这种全面诊断了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -901,92 +1005,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2024/07/13/effective_vscode/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/first_pc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="lpdink">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lpdink的博客">
-      <meta itemprop="description" content="做更好的工作">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | lpdink的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/07/13/first_pc/" class="post-title-link" itemprop="url">记第一次装机：选型，购买与组装测试</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-03 08:29:37" itemprop="dateModified" datetime="2023-06-03T08:29:37+00:00">2023-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">生活记录</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>虽然是计算机的学生，但是此前一直使用着笔记本。之前的主力机是一台华硕天选1，amd4800H，RTX2060-6G-90W，20年3月购买的，高强度用了3年，表现还可以（不过QLC的SSD已经85%残血了）。遗憾的是残血2060的6G显存，1980个流处理器对专业学习来说实在是不够。</p>
-<p>（是的，新装机主要还是为专业考虑。打游戏还是继续用xsx了，那个能4K。）</p>
-<p>这是第一次装机，此前自己对硬件也不很懂，在百度贴吧图拉丁吧和显卡吧蹲了几天，刷贴研究，看B站装机猿，硬件茶谈的视频，小有心得。值此新机组装完成之际，写成博客与大家分享。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/07/13/first_pc/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
