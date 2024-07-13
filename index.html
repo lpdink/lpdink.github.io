@@ -87,7 +87,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li>
   </ul>
 </nav>
 
@@ -126,18 +126,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -168,7 +168,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/life/thinking_method/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/tricks/ban_ssh/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -186,7 +186,93 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/life/thinking_method/" class="post-title-link" itemprop="url">澄清心思，一种新的思想方法</a>
+          <a href="/2024/07/13/tricks/ban_ssh/" class="post-title-link" itemprop="url">Ssh设置白名单，保护暴露在公网的端口</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-13 10:02:04" itemprop="dateModified" datetime="2024-07-13T10:02:04+00:00">2024-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/tricks/" itemprop="url" rel="index"><span itemprop="name">tricks</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="iptables-ipset"><a href="#iptables-ipset" class="headerlink" title="iptables+ipset"></a>iptables+ipset</h2><p>它们真的很烦，自从买的服务器后，ssh一直被暴力字典，虽然设置了只允许密钥登陆，ssh开到高端口，但是看到&#x2F;var&#x2F;log&#x2F;auth.log每两分钟就有尝试登陆，还是很烦。</p>
+<p>这次远程工作，要把4070ti暴露出来了，比较贵重，还是得加强一下防御，通过询问llm，知道了可以用iptables+ipset来设置白名单，这里记录一下，之后再换内网穿透服务器时，再建立一遍吧。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新包列表并安装ipset工具，用于后续的IP集合管理</span></span><br><span class="line">sudo apt update &amp;&amp; sudo apt install ipset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个名为cnip的IP集合，类型为网络哈希，用于存储中国IP地址</span></span><br><span class="line">sudo ipset -N cnip <span class="built_in">hash</span>:net </span><br><span class="line"></span><br><span class="line"><span class="comment"># 从ipdeny.com下载中国IP地址的zone文件</span></span><br><span class="line">wget http://www.ipdeny.com/ipblocks/data/countries/cn.zone </span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历cn.zone文件中的每一行，将IP地址添加到cnip集合中</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `<span class="built_in">cat</span> cn.zone`; <span class="keyword">do</span> sudo ipset -A cnip <span class="variable">$i</span>; <span class="keyword">done</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看ipset中的IP集合，确认中国IP地址是否已正确添加</span></span><br><span class="line"><span class="comment"># ipset -L</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置iptables规则，允许来自cnip集合中IP地址的入站流量</span></span><br><span class="line">sudo iptables -I INPUT -m <span class="built_in">set</span> --match-set cnip src -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将默认的入站策略设置为DROP，即拒绝所有未明确允许的入站流量</span></span><br><span class="line">sudo iptables -P INPUT DROP </span><br></pre></td></tr></table></figure>
+
+<p>以上注释由通义灵码生成，赞美它。</p>
+<h2 id="看看效果"><a href="#看看效果" class="headerlink" title="看看效果"></a>看看效果</h2><p>在我写这个博客前，还在以3分钟左右为单位，不停地被暴力，我们现在再来看看log吧，现在是17:49，&#x2F;var&#x2F;log&#x2F;auth.log的最后是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Jul 13 17:26:40 localhost sshd[9105]: Invalid user ixm from 45.148.10.197 port 38550</span><br><span class="line">Jul 13 17:26:40 localhost sshd[9105]: Connection closed by invalid user ixm 45.148.10.197 port 38550 [preauth]</span><br><span class="line">Jul 13 17:28:16 localhost sshd[9107]: Invalid user bvl from 142.93.164.120 port 38148</span><br><span class="line">Jul 13 17:28:16 localhost sshd[9107]: Connection closed by invalid user bvl 142.93.164.120 port 38148 [preauth]</span><br><span class="line">Jul 13 17:29:22 localhost sshd[9109]: Invalid user txw from 45.148.10.196 port 52144</span><br><span class="line">Jul 13 17:29:23 localhost sshd[9109]: Connection closed by invalid user txw 45.148.10.196 port 52144 [preauth]</span><br><span class="line">Jul 13 17:31:08 localhost sudo: pam_unix(sudo:session): session closed for user root</span><br><span class="line">Jul 13 17:35:01 localhost CRON[9193]: pam_unix(cron:session): session opened for user root by (uid=0)</span><br><span class="line">Jul 13 17:35:01 localhost CRON[9193]: pam_unix(cron:session): session closed for user root</span><br><span class="line">Jul 13 17:40:01 localhost CRON[9205]: pam_unix(cron:session): session opened for user root by (uid=0)</span><br><span class="line">Jul 13 17:40:01 localhost CRON[9205]: pam_unix(cron:session): session closed for user root</span><br><span class="line">Jul 13 17:45:01 localhost CRON[9214]: pam_unix(cron:session): session opened for user root by (uid=0)</span><br><span class="line">Jul 13 17:45:01 localhost CRON[9214]: pam_unix(cron:session): session closed for user root</span><br><span class="line">Jul 13 17:50:01 localhost CRON[9225]: pam_unix(cron:session): session opened for user root by (uid=0)</span><br><span class="line">Jul 13 17:50:01 localhost CRON[9225]: pam_unix(cron:session): session closed for user root</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，17:30以后，就只有计划任务了，终于能安静点了。之前一直没管，日志文件都积累了快100M了，真是操蛋。</p>
+<p>之前在B站也看到了做ssh蜜罐服务的帖子，不过咱这小水管，懒得折腾了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/life/thinking_method/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="lpdink">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lpdink的博客">
+      <meta itemprop="description" content="做更好的工作">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | lpdink的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/13/life/thinking_method/" class="post-title-link" itemprop="url">澄清心思，一种新的思想方法</a>
         </h2>
 
         <div class="post-meta-container">
@@ -223,7 +309,7 @@
 <p>在今天，机缘巧合之下，我有一些想法了，在这里记录和讨论。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/life/thinking_method/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/life/thinking_method/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -254,7 +340,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/jidu/hello_hexagon/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/jidu/hello_hexagon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -272,7 +358,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/jidu/hello_hexagon/" class="post-title-link" itemprop="url">Hello Hexagon</a>
+          <a href="/2024/07/13/jidu/hello_hexagon/" class="post-title-link" itemprop="url">Hello Hexagon</a>
         </h2>
 
         <div class="post-meta-container">
@@ -307,7 +393,7 @@
           <p>hexagon是高通Soc的DSP，专有HVX指令集。DSP是并列于CPU，GPU的一类计算单元，有独特的架构，需要单独的工具链。笔者也是第一次接手DSP上的开发工作，本文将从一个新手的角度出发，以实践性为导向，记录如何开始在hexagon的算法部署工作。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/jidu/hello_hexagon/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/jidu/hello_hexagon/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -338,7 +424,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/ProGit/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/ProGit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -356,7 +442,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/ProGit/" class="post-title-link" itemprop="url">ProGit</a>
+          <a href="/2024/07/13/ProGit/" class="post-title-link" itemprop="url">ProGit</a>
         </h2>
 
         <div class="post-meta-container">
@@ -391,7 +477,7 @@
           <p>通过本文了解不那么常用的git命令（尤其像git rebase，git merge和cherry pick）的使用吧，不用再总被diss是麻瓜了！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/ProGit/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/ProGit/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -422,7 +508,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/WSL/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/WSL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -440,7 +526,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/WSL/" class="post-title-link" itemprop="url">WSL：Windows下的轻量linux系统</a>
+          <a href="/2024/07/13/WSL/" class="post-title-link" itemprop="url">WSL：Windows下的轻量linux系统</a>
         </h2>
 
         <div class="post-meta-container">
@@ -478,7 +564,7 @@
 <p>对开发者来说，Linux系统比windows更稳定，更方便，除了使用ssh连接到远程的linux服务器外，我们现在可以通过WSL取得一个本地的Linux环境了。本篇文章将说明WSL环境的配置，及在VScode中连接到WSL，就像你通过ssh到远程服务器一样。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/WSL/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/WSL/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -509,7 +595,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/cxx_primer/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/cxx_primer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -527,7 +613,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/cxx_primer/" class="post-title-link" itemprop="url">C++ Primer笔记</a>
+          <a href="/2024/07/13/cxx_primer/" class="post-title-link" itemprop="url">C++ Primer笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -562,7 +648,7 @@
           <p>本笔记是C++ Primer的阅读笔记，以知识点的形式呈现。<br>primer很长很长，所以本笔记也很长很长…</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/cxx_primer/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/cxx_primer/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -593,7 +679,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/docker/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -611,7 +697,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/docker/" class="post-title-link" itemprop="url">开始使用Docker</a>
+          <a href="/2024/07/13/docker/" class="post-title-link" itemprop="url">开始使用Docker</a>
         </h2>
 
         <div class="post-meta-container">
@@ -646,7 +732,7 @@
           <p>本文介绍了docker的基础使用，不包含GPU，GPU请参考另一篇：通过docker获取torch-gpu</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/docker/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/docker/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -677,7 +763,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/docker_torch_gpu/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/docker_torch_gpu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -695,7 +781,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/docker_torch_gpu/" class="post-title-link" itemprop="url">通过Docker获取torch-Gpu</a>
+          <a href="/2024/07/13/docker_torch_gpu/" class="post-title-link" itemprop="url">通过Docker获取torch-Gpu</a>
         </h2>
 
         <div class="post-meta-container">
@@ -730,7 +816,7 @@
           <p>本文介绍了如何安装docker-ce和nvidia-container-toolkit，torch-gpu的傻瓜版获取方案，再也不为dl的环境配置发愁！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/docker_torch_gpu/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/docker_torch_gpu/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -761,7 +847,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/effective_vscode/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/effective_vscode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -779,7 +865,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/effective_vscode/" class="post-title-link" itemprop="url">Effective VScode</a>
+          <a href="/2024/07/13/effective_vscode/" class="post-title-link" itemprop="url">Effective VScode</a>
         </h2>
 
         <div class="post-meta-container">
@@ -814,7 +900,7 @@
           <p>本文将介绍VScode中极好用的操作，提高你的生产效率！<br>本文的阅读诀窍是：<strong>试试看比听我说要快得多！</strong>  </p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/effective_vscode/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/effective_vscode/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -845,7 +931,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/first_pc/">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/first_pc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/avatar.jpg">
@@ -863,7 +949,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/first_pc/" class="post-title-link" itemprop="url">记第一次装机：选型，购买与组装测试</a>
+          <a href="/2024/07/13/first_pc/" class="post-title-link" itemprop="url">记第一次装机：选型，购买与组装测试</a>
         </h2>
 
         <div class="post-meta-container">
@@ -900,92 +986,7 @@
 <p>这是第一次装机，此前自己对硬件也不很懂，在百度贴吧图拉丁吧和显卡吧蹲了几天，刷贴研究，看B站装机猿，硬件茶谈的视频，小有心得。值此新机组装完成之际，写成博客与大家分享。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/12/01/first_pc/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2023/12/01/learn_go/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-      <meta itemprop="name" content="lpdink">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lpdink的博客">
-      <meta itemprop="description" content="做更好的工作">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | lpdink的博客">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/12/01/learn_go/" class="post-title-link" itemprop="url">从零开始的Go语言笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-03 08:29:37" itemprop="dateModified" datetime="2023-06-03T08:29:37+00:00">2023-06-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>go在web开发上的优势无需多言，作为新兴语言，没有java那样沉重的历史包袱（与相当多的过度设计），适合作为高性能web服务端开发的工具语言。docker, k8s等明星项目为go在云计算方向的应用铺平了道路，使得它在足够简单的基础下，又具备很高的上限。  </p>
-<p>以上都足以作为笔者（及读者你）开始学习go的原因：它十分简单，高效开发，性能强劲，在部署上的便利性令人震撼。  </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/01/learn_go/#more" rel="contents">
+              <a class="btn" href="/2024/07/13/first_pc/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1021,7 +1022,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

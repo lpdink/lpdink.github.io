@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lpdink.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="虽然是计算机的学生，但是此前一直使用着笔记本。之前的主力机是一台华硕天选1，amd4800H，RTX2060-6G-90W，20年3月购买的，高强度用了3年，表现还可以（不过QLC的SSD已经85%残血了）。遗憾的是残血2060的6G显存，1980个流处理器对专业学习来说实在是不够。 （是的，新装机主要还是为专业考虑。打游戏还是继续用xsx了，那个能4K。） 这是第一次装机，此前自己对硬件也不很懂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记第一次装机：选型，购买与组装测试">
+<meta property="og:url" content="https://lpdink.github.io/2024/07/13/first_pc/index.html">
+<meta property="og:site_name" content="lpdink的博客">
+<meta property="og:description" content="虽然是计算机的学生，但是此前一直使用着笔记本。之前的主力机是一台华硕天选1，amd4800H，RTX2060-6G-90W，20年3月购买的，高强度用了3年，表现还可以（不过QLC的SSD已经85%残血了）。遗憾的是残血2060的6G显存，1980个流处理器对专业学习来说实在是不够。 （是的，新装机主要还是为专业考虑。打游戏还是继续用xsx了，那个能4K。） 这是第一次装机，此前自己对硬件也不很懂">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-13T10:02:24.691Z">
+<meta property="article:modified_time" content="2023-06-03T08:29:37.000Z">
+<meta property="article:author" content="lpdink">
+<meta property="article:tag" content="游戏">
+<meta property="article:tag" content="爱好">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lpdink.github.io/2024/07/13/first_pc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2024/07/13/first_pc/","path":"2024/07/13/first_pc/","title":"记第一次装机：选型，购买与组装测试"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>记第一次装机：选型，购买与组装测试 | lpdink的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">lpdink的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">来点好玩的！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E9%80%89%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">硬件选型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E5%8D%A1%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">显卡选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E9%80%89%E6%8B%A9"><span class="nav-number">2.2.</span> <span class="nav-text">CPU选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%EF%BC%8C%E6%95%A3%E7%83%AD%EF%BC%8C%E5%9B%BA%E6%80%81%EF%BC%8C%E6%9C%BA%E6%A2%B0%E7%A1%AC%E7%9B%98%EF%BC%8C%E7%94%B5%E6%BA%90"><span class="nav-number">2.3.</span> <span class="nav-text">内存，散热，固态，机械硬盘，电源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%8D%95"><span class="nav-number">2.4.</span> <span class="nav-text">配置单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%B4%AD%E4%B9%B0"><span class="nav-number">3.</span> <span class="nav-text">硬件购买</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">组装与测试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="lpdink"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">lpdink</p>
+  <div class="site-description" itemprop="description">做更好的工作</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lpdink" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lpdink" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/first_pc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="lpdink">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lpdink的博客">
+      <meta itemprop="description" content="做更好的工作">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="记第一次装机：选型，购买与组装测试 | lpdink的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记第一次装机：选型，购买与组装测试
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-03 08:29:37" itemprop="dateModified" datetime="2023-06-03T08:29:37+00:00">2023-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E6%B4%BB%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">生活记录</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>虽然是计算机的学生，但是此前一直使用着笔记本。之前的主力机是一台华硕天选1，amd4800H，RTX2060-6G-90W，20年3月购买的，高强度用了3年，表现还可以（不过QLC的SSD已经85%残血了）。遗憾的是残血2060的6G显存，1980个流处理器对专业学习来说实在是不够。</p>
+<p>（是的，新装机主要还是为专业考虑。打游戏还是继续用xsx了，那个能4K。）</p>
+<p>这是第一次装机，此前自己对硬件也不很懂，在百度贴吧图拉丁吧和显卡吧蹲了几天，刷贴研究，看B站装机猿，硬件茶谈的视频，小有心得。值此新机组装完成之际，写成博客与大家分享。</p>
+<span id="more"></span>
+
+<p>本文的适合读者：</p>
+<ul>
+<li>对PC硬件配置，DIY主机感兴趣的朋友（出于专业生产力考虑，或出于3A游戏考虑）</li>
+</ul>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#%E7%A1%AC%E4%BB%B6%E9%80%89%E5%9E%8B">硬件选型</a>：如何在 <strong>预算有限</strong> 的条件下配置一台入门级的 <strong>深度学习&#x2F;2k游戏主机</strong> ？</li>
+<li><a href="#%E7%A1%AC%E4%BB%B6%E8%B4%AD%E4%B9%B0">硬件购买</a>：多多，淘宝，京东，怎么买<strong>划算</strong>？</li>
+<li><a href="#%E7%BB%84%E8%A3%85%E4%B8%8E%E6%B5%8B%E8%AF%95">组装与测试</a>：如何快速判断到手的硬件没毛病？组装起来的电脑能正常<strong>稳定工作</strong>？</li>
+</ol>
+<hr>
+<h2 id="硬件选型"><a href="#硬件选型" class="headerlink" title="硬件选型"></a>硬件选型</h2><blockquote>
+<p>如何在 <strong>预算有限</strong> 的条件下配置一台入门级的 <strong>深度学习&#x2F;2k游戏主机</strong> ？</p>
+</blockquote>
+<p>本次我给到的预算是5000-6000元（不含显示器），期望配置一台入门级别的，用于深度学习训练的主机。  </p>
+<p>由于深度学习的任务特点，大家知道，它对显卡的要求很高，对显存也非常看重，显存够不够大，很多情况下决定了你的模型能不能训练，或者你训练时的batch_size能开到多少，batch_size太小，你模型收敛不了，要开梯度累计，那又要改代码，比较麻烦。</p>
+<p>在显卡品牌上，目前amd的生态支持还不甚理想，CUDA护城河太深，你只能选nvidia的卡，所以说和amd yes说拜拜吧，没办法。</p>
+<p>CPU不能太弱，多核性能要过关，这样我们在开多worker载入数据时比较舒服，但太强了也没啥用，你不会用CPU来训模型的，打游戏时也是显卡比较关键，所以CPU可以省一省（3A游戏，网游会比较吃CPU）。</p>
+<p>同时，当下在windows下利用WSL使用linux环境十分方便，但WSL的内存占用很高，因此我们也要有很大的内存。在你做一般开发，多开重型IDE时也会很有用。</p>
+<p>外存必不可少，不然庞大的训练数据集没地方放。都放在SSD里太奢侈了，我们的预算不允许我们这么做，但是单纯放在机械硬盘里，小数据集的载入又太慢。因此这里需要SSD+大机械硬盘的选型。</p>
+<p>总结来说：</p>
+<ul>
+<li>预算大头给显卡，nvidia的，至少12GB显存，保证显存后，流处理器越多越好</li>
+<li>CPU可以省一省，比较看重多核性能</li>
+<li>内存要32GB</li>
+<li>外存选1T的SSD和至少2T的机械</li>
+</ul>
+<hr>
+<h3 id="显卡选择"><a href="#显卡选择" class="headerlink" title="显卡选择"></a>显卡选择</h3><p>在当下这个时间节点，nvidia家能满足12GB+左右显存的，按照发布时间排序：</p>
+<table>
+<thead>
+<tr>
+<th>显卡</th>
+<th>显存</th>
+<th>流处理器数量(cuda核心)</th>
+<th>价格（2023年4月）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GTX1080ti</td>
+<td>11 GB</td>
+<td>3584</td>
+<td>1077(二手)</td>
+</tr>
+<tr>
+<td>RTX2080ti</td>
+<td>11 GB</td>
+<td>4352</td>
+<td>1750(二手)</td>
+</tr>
+<tr>
+<td>RTX3060</td>
+<td>12 GB</td>
+<td>3584</td>
+<td>2300</td>
+</tr>
+<tr>
+<td>RTX3080</td>
+<td>10 GB</td>
+<td>8704</td>
+<td>4000</td>
+</tr>
+<tr>
+<td>RTX3080ti</td>
+<td>12 GB</td>
+<td>10240</td>
+<td>5600</td>
+</tr>
+<tr>
+<td>RTX4070ti</td>
+<td>12 GB</td>
+<td>7680</td>
+<td>6500</td>
+</tr>
+<tr>
+<td>RTX4070</td>
+<td>12 GB</td>
+<td>5888</td>
+<td>4799（刚刚发布）</td>
+</tr>
+</tbody></table>
+<p>有的小伙伴可能要问了，3090(ti)，4090，有24GB的显存，不是更适合作为深度学习的训练卡吗？<br>说得很对，但是我们的预算只有5000出头，买一张这样的卡都不够，更不要说配整机了。<br>有的小伙伴可能又要问了，那你为什么表中还有5000以上的3080ti和4070ti呢？<br>说得很对，这里只是放出来，统计一下12GB显存附近的卡而已，顺带让大家看看可恶的老黄有多万恶。<br>有的小伙伴可能还会问，那我们可以选P40这样的专业卡呀，又便宜，显存又大。<br>说得很对，但这种卡合适价格的都是古早产品了，买到折腾环境十分困难，它们和表中的1080ti有类似的问题，太老，二手都属于被用了N年的那种，稳定性难以保证。（另外它们完全打不了游戏）</p>
+<p>1080ti和2080ti都是二手，而且由于前两年数字货币的“挖矿”大潮，基本上现在市面上的都是矿渣了，稳定性堪忧，没有质保，而且不便宜，要1千多呢，买到用不了两天就太冤了。</p>
+<p>3080以上对我们的需求来说又有点贵了，它的功耗不低，如果硬着头皮上，还要保证控制预算，电源和CPU的选择只能丐中丐中丐，十分危险，最好不要。另外，它只有10GB的显存，还是有点小。</p>
+<p>所以看似我们有的选，其实我们没得选，所以 <strong>我们选RTX3060-12GB</strong>。3584个cuda核心确实比较感人，但是也勉勉强强吧，比我现在的2060的1980个核心有81%的提升了，不错了。我的建议是多跑一会儿，将就用用吧。</p>
+<blockquote>
+<p>还是因为没有钱…(怨念ing…)</p>
+</blockquote>
+<hr>
+<h3 id="CPU选择"><a href="#CPU选择" class="headerlink" title="CPU选择"></a>CPU选择</h3><p>显卡花掉了我们2300元的预算，CPU这边可以砍一砍，我们的期望是主板+CPU在1500元附近。</p>
+<p>在这个价位段，我们的选择池是：</p>
+<table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>加速频率</th>
+<th>核心数量</th>
+<th>线程数量</th>
+<th>板U价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>amd Ryzen 5 5500</td>
+<td>4.2 GHz</td>
+<td>6</td>
+<td>12</td>
+<td>850</td>
+</tr>
+<tr>
+<td>amd Ryzen 5 5600</td>
+<td>4.4 GHz</td>
+<td>6</td>
+<td>12</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>amd Ryzen 7 5700X</td>
+<td>4.6GHz</td>
+<td>8</td>
+<td>16</td>
+<td>1500</td>
+</tr>
+<tr>
+<td>intel i5-12100(f)</td>
+<td>4.3 GHz</td>
+<td>4</td>
+<td>8</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>intel i5-12400(f)</td>
+<td>4.4 GHz</td>
+<td>6</td>
+<td>12</td>
+<td>1400</td>
+</tr>
+<tr>
+<td>intel i5-13400(f)</td>
+<td>4.6 GHz</td>
+<td>10</td>
+<td>16</td>
+<td>2148</td>
+</tr>
+</tbody></table>
+<p>对于非网游或其他吃CPU的生产力需求，这里选Ryzen 5 5500真的很合适，因为它真的，太便宜了！而且性能也不是那么弱，绝对够日常使用，它的性能大约与我之前使用的笔记本接近。  </p>
+<p>鉴于我们的预算在1500附近，可以让CPU不那么丐，从理智上说，选择Ryzen 7 5700X是最好的，4.6GHz的加速频率很不错，8核16线程足够我们的并发进程使用。  </p>
+<p>但是啊，但是，我已经用了3年amd的CPU，虽然从来没出过岔子（除了在IOS课装黑苹果时有点折腾），但每天都有人告诉我intel的CPU更稳定。</p>
+<p>现在，我必须考虑这是不是我，额，接下来几年唯一的机会，我还是按捺不住试试更高贵的intel的心情，选择了华硕H610M-A+intel 12400的主板和CPU。  </p>
+<blockquote>
+<p>在写这个博客时，我已经装好机器并使用了一周左右了，我得承认，我有一点点后悔，我应该买5700x的。12400的性能虽然不弱，但是也并没有令我感到惊喜。不过，华硕的这个主板真的很不错，有四个RGB接口，很酷，我很满意。</p>
+</blockquote>
+<hr>
+<h3 id="内存，散热，固态，机械硬盘，电源"><a href="#内存，散热，固态，机械硬盘，电源" class="headerlink" title="内存，散热，固态，机械硬盘，电源"></a>内存，散热，固态，机械硬盘，电源</h3><p>内存一般不会坏，所以选择丐中丐。这里选择了图拉丁吧老哥们最近最推荐的丐版内存 <strong>金百达·三星颗粒</strong>，2条16GB竟然只要318块，我哭死…</p>
+<p>散热选择了注重性价比的利民120SE，12400的发热量不大，用这个散热器绝对压得住。  </p>
+<p>固态同样选择了图吧老哥倾力推荐的凯侠RC20-1T，它的读写速度虽然不快，但是有高达1GB的缓存，性能表现更稳定，同时价格低廉。  </p>
+<p>机械硬盘一般买2T就很足够了，奈何最近内存外存实在太便宜，价格低到我落泪，忍不住就买了海康威视4T的盘，380块，还是CMR，要啥自行车。  </p>
+<p>省啥不能省电源，必须上一线品牌。宿舍有点限电，所以选择了长城金牌G6电源。本次选择的CPU+显卡+主板总功耗大约在400W，留余量考虑，购买500W的电源即可，但拼多多实在太便宜，忍不住买了650w的，权当给以后升级显卡留下空间吧…</p>
+<blockquote>
+<p>事实证明，电源也是一个高危组件，不应该在多多买的。我有一一点点小翻车，接显卡的PCIE电源接口在用了一周后鼓包了，只能换一根线。</p>
+</blockquote>
+<hr>
+<h3 id="配置单"><a href="#配置单" class="headerlink" title="配置单"></a>配置单</h3><table>
+<thead>
+<tr>
+<th>项目</th>
+<th>产品</th>
+<th>购买渠道</th>
+<th>价格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CPU</td>
+<td>intel i5-12400(散片)</td>
+<td>拼多多</td>
+<td>910</td>
+</tr>
+<tr>
+<td>主板</td>
+<td>华硕H610M-A</td>
+<td>拼多多</td>
+<td>544</td>
+</tr>
+<tr>
+<td>显卡</td>
+<td>铭瑄RTX3060-12G电竞之心</td>
+<td>京东</td>
+<td>2320</td>
+</tr>
+<tr>
+<td>电源</td>
+<td>长城G6金牌-650w</td>
+<td>拼多多</td>
+<td>378</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>金百达16G-3200MHz*2</td>
+<td>拼多多</td>
+<td>318</td>
+</tr>
+<tr>
+<td>固态硬盘</td>
+<td>凯侠RC20-1T</td>
+<td>拼多多</td>
+<td>318</td>
+</tr>
+<tr>
+<td>机械硬盘</td>
+<td>海康威视4T-CMR</td>
+<td>拼多多</td>
+<td>388</td>
+</tr>
+<tr>
+<td>CPU散热</td>
+<td>利民120-SE</td>
+<td>拼多多</td>
+<td>63</td>
+</tr>
+<tr>
+<td>机箱风扇</td>
+<td>利民C12C-ARGB*2</td>
+<td>拼多多</td>
+<td>39</td>
+</tr>
+<tr>
+<td>无线网卡</td>
+<td>AX210</td>
+<td>拼多多</td>
+<td>85</td>
+</tr>
+<tr>
+<td>机箱</td>
+<td>先马平头哥M2</td>
+<td>京东</td>
+<td>88</td>
+</tr>
+<tr>
+<td>总价格</td>
+<td>\</td>
+<td>\</td>
+<td>5451</td>
+</tr>
+</tbody></table>
+<h2 id="硬件购买"><a href="#硬件购买" class="headerlink" title="硬件购买"></a>硬件购买</h2><blockquote>
+<p>多多，淘宝，京东，怎么买<strong>划算</strong>？</p>
+</blockquote>
+<p>高危产品用京东，其余全部拼多多，你看上面我的配置单购买渠道就知道了，多多是真的便宜啊，你别说有没有问题吧，就冲它普遍比京东便宜10-25%，我们就不应该质疑这个问题。。。</p>
+<p>啥是高危产品？就是很容易出问题的部件啦。由于前两年的矿潮，很多显卡是翻新货，在多多买确实难以令人放心，还是在京东买，最大概率保证是新品吧…</p>
+<blockquote>
+<p>一周后的我：电源也是高危产品！记得在京东买！</p>
+</blockquote>
+<p>在多多购买，想买的比较便宜，也是有技巧的：</p>
+<p>你需要先点击个人中心-多多果园&#x2F;多多牧场，跟随它弱智的活动指引，不要相信它准备送你现金或者免费拿商品的活动，不要给亲友发砍一刀或者邀请链接，不要相信它会送你水果（也许这个真的会送）。总之点点浇水，打打斗地主，玩玩贪吃蛇，喂喂牛，然后它就会送你优惠券（有的力度非常大，比如500-100，1000-200，不过常见的是500-50，1000-100），然后你就可以买了，普遍比京东便宜10%-25%，取决于京东的产品有没有打折，非常可怕。</p>
+<blockquote>
+<p>我得吐槽一下它的产品经理，你就不能直接把优惠券给我吗？你不会真以为我喜欢玩你的浇水游戏和斗地主吧，我晕。</p>
+</blockquote>
+<p>为什么不在淘宝买？</p>
+<p>因为平台政策的不同。京东因为是自营，售后的感觉非常良好，一旦出问题，绝对不多BB，当天上门取件，次天给你换新，很可怕。<br>淘宝和多多的产品质量差不多，从售后上看，多多现在推行压榨商家，然后让利顾客的策略，让很多店家苦不堪言，消费者自然很爽了，只退款不退货（相当于白给你一个产品）的售后屡见不鲜，很可怕。相比之下，淘宝那边的小二更倾向于店家，比较喜欢和稀泥。</p>
+<p>更重要的是，<strong>多多更便宜</strong>。</p>
+<hr>
+<h2 id="组装与测试"><a href="#组装与测试" class="headerlink" title="组装与测试"></a>组装与测试</h2><p>如何装机？其实是需要一定的动手能力的，这也是我第一次亲手组装一台PC，这里强烈推荐<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BG4y137mG">B站硬件茶谈的装机视频</a>，手工3D制作，经费爆炸，不能更详尽了！他们自称是全网最好的装机教程。我得说，说的没错！<br>我们下载 <a target="_blank" rel="noopener" href="http://www.tbtool.cn/">图吧工具箱</a> 进行系统稳定性的测试，这里需要双烤CPU和显卡（即让CPU和显卡都高负荷运行一段时间，以测试系统稳定性）。<br>图吧工具箱的使用，在工具箱内部就有视频教程，这里不赘述了。  </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%B8%E6%88%8F/" rel="tag"><i class="fa fa-tag"></i> 游戏</a>
+              <a href="/tags/%E7%88%B1%E5%A5%BD/" rel="tag"><i class="fa fa-tag"></i> 爱好</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/13/learn_go/" rel="prev" title="从零开始的Go语言笔记">
+                  <i class="fa fa-chevron-left"></i> 从零开始的Go语言笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/13/effective_vscode/" rel="next" title="Effective VScode">
+                  Effective VScode <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lpdink</span>
+</div>
+  <div class="powered-by">感谢 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 提供博客支持！
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"lpdink.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="hexagon是高通Soc的DSP，专有HVX指令集。DSP是并列于CPU，GPU的一类计算单元，有独特的架构，需要单独的工具链。笔者也是第一次接手DSP上的开发工作，本文将从一个新手的角度出发，以实践性为导向，记录如何开始在hexagon的算法部署工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Hexagon">
+<meta property="og:url" content="https://lpdink.github.io/2024/07/13/jidu/hello_hexagon/index.html">
+<meta property="og:site_name" content="lpdink的博客">
+<meta property="og:description" content="hexagon是高通Soc的DSP，专有HVX指令集。DSP是并列于CPU，GPU的一类计算单元，有独特的架构，需要单独的工具链。笔者也是第一次接手DSP上的开发工作，本文将从一个新手的角度出发，以实践性为导向，记录如何开始在hexagon的算法部署工作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-13T10:02:24.691Z">
+<meta property="article:modified_time" content="2023-06-09T11:24:02.000Z">
+<meta property="article:author" content="lpdink">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="环境配置">
+<meta property="article:tag" content="jidu">
+<meta property="article:tag" content="hexagon">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://lpdink.github.io/2024/07/13/jidu/hello_hexagon/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://lpdink.github.io/2024/07/13/jidu/hello_hexagon/","path":"2024/07/13/jidu/hello_hexagon/","title":"Hello Hexagon"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hello Hexagon | lpdink的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">lpdink的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">来点好玩的！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">14</span></a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E8%B5%84%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">0. 资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E9%A2%84%E7%83%AD"><span class="nav-number">2.</span> <span class="nav-text">1. 预热</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-DSP-Digital-Signal-Processor"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 DSP(Digital Signal Processor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-DSP%E4%B8%8A%E5%BF%85%E8%A6%81%E7%9A%84%E5%8A%A0%E9%80%9F%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 DSP上必要的加速技术：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-%E9%AB%98%E9%80%9A%E6%8F%90%E4%BE%9B%E7%9A%84%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8E%A8%E7%90%86%E6%96%B9%E6%A1%88"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 高通提供的神经网络推理方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-HTP-Hexagon-Tensor-Processor"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 HTP(Hexagon Tensor Processor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-%E9%AB%98%E9%80%9ASoc%E4%B8%8A%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97%E5%8D%95%E5%85%83"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 高通Soc上可能的计算单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-1-%E6%80%BB%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="nav-number">2.6.</span> <span class="nav-text">1.6.1 总线结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-2-%E4%B8%80%E8%87%B4%E6%80%A7%E4%BF%9D%E8%AF%81"><span class="nav-number">2.7.</span> <span class="nav-text">1.6.2 一致性保证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-x-%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%EF%BC%9A"><span class="nav-number">2.8.</span> <span class="nav-text">1.x 推荐阅读：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E8%AE%BE%E5%A4%87%E5%8F%82%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">2. 设备参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Hexagon-SDK%E8%8E%B7%E5%8F%96"><span class="nav-number">4.</span> <span class="nav-text">3. Hexagon SDK获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-adsp%E4%B8%8A%E7%9A%84Hello-World"><span class="nav-number">5.</span> <span class="nav-text">4. adsp上的Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-HVX%E6%8C%87%E4%BB%A4%E9%9B%86%E8%B0%83%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">5. HVX指令集调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-tvm-for-hexagon-adsp"><span class="nav-number">7.</span> <span class="nav-text">6. tvm for hexagon-adsp</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="lpdink"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">lpdink</p>
+  <div class="site-description" itemprop="description">做更好的工作</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lpdink" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lpdink" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lpdink.github.io/2024/07/13/jidu/hello_hexagon/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="lpdink">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lpdink的博客">
+      <meta itemprop="description" content="做更好的工作">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hello Hexagon | lpdink的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hello Hexagon
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-09 11:24:02" itemprop="dateModified" datetime="2023-06-09T11:24:02+00:00">2023-06-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index"><span itemprop="name">部署</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>hexagon是高通Soc的DSP，专有HVX指令集。DSP是并列于CPU，GPU的一类计算单元，有独特的架构，需要单独的工具链。笔者也是第一次接手DSP上的开发工作，本文将从一个新手的角度出发，以实践性为导向，记录如何开始在hexagon的算法部署工作。</p>
+<span id="more"></span>
+
+<h2 id="0-资源"><a href="#0-资源" class="headerlink" title="0. 资源"></a>0. 资源</h2><p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/software/hexagon-dsp-sdk">hexagon sdk</a>: 有时候网页会有问题，报web-error，提供了一个愚蠢的管理工具，而不是直接的sdk，很麻烦，不推荐。<br><a target="_blank" rel="noopener" href="https://hub.docker.com/u/tlcpack">tvm unofficial docker image</a>: tvm所有的镜像<br><a target="_blank" rel="noopener" href="https://hub.docker.com/r/tlcpack/ci-hexagon/tags">tvm image for hexagon</a>: tvm用于hexagon的镜像，推荐使用这个镜像，而不是自己build，tvm提供的Dockerfile有bug，无法正常build且需要编译llvm for hexagon&#x2F;x86，需要非常久的时间。</p>
+<h2 id="1-预热"><a href="#1-预热" class="headerlink" title="1. 预热"></a>1. 预热</h2><h3 id="1-1-DSP-Digital-Signal-Processor"><a href="#1-1-DSP-Digital-Signal-Processor" class="headerlink" title="1.1 DSP(Digital Signal Processor)"></a>1.1 <strong>DSP(Digital Signal Processor)</strong></h3><p>即数字信号处理器，是低频，但高并行度的计算单元，适合用于部署音频及图像处理任务。DSP相较于CPU&#x2F;GPU，特点是强调定点计算，SIMD，功耗低，通用计算能力弱，如果要发挥优势，就必须做定点优化，并利用SIMD。由于近年来大家都很卷，端上系统的功耗愈发敏感，许多原先由CPU进行的任务，都开始下放到DSP执行了。</p>
+<h3 id="1-2-DSP上必要的加速技术："><a href="#1-2-DSP上必要的加速技术：" class="headerlink" title="1.2 DSP上必要的加速技术："></a>1.2 DSP上必要的加速技术：</h3><ul>
+<li>SIMD：Single Instruction Multiple Data的缩写，它指的是一种并行计算的方式，即用一条指令同时对多个数据进行相同的操作。例如，一条SIMD指令可以同时对两个或多个向量中的每个元素进行加法或乘法。这样可以提高数据处理的吞吐量和效率，特别适合于数字信号处理中经常出现的向量运算。</li>
+<li>VLIW：Very Long Instruction Word的缩写，它指的是一种指令格式和架构，即用一个很长的指令字来包含多条子指令，每条子指令可以独立地在不同的功能单元上执行。例如，一个VLIW指令可以同时包含一个算术运算，一个逻辑运算，一个内存访问和一个分支跳转。这样可以提高指令级并行度和性能，特别适合于数字信号处理中经常出现的规则和可预测的控制流程。</li>
+<li>MAC：Multiply-Accumulate的缩写，它指的是一种运算操作，即将两个数相乘后再加上一个累加器的值。例如，一个MAC操作可以表示为C &#x3D; A * B + C。这样可以减少运算步骤和误差，特别适合于数字信号处理中经常出现的卷积和滤波等操作。</li>
+</ul>
+<h3 id="1-3-高通提供的神经网络推理方案"><a href="#1-3-高通提供的神经网络推理方案" class="headerlink" title="1.3 高通提供的神经网络推理方案"></a>1.3 高通提供的神经网络推理方案</h3><ul>
+<li>骁龙专用的<a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/overview.html">SNPE</a>，模型格式是DLC。SNPE不能适用于车载芯片，参考 <a target="_blank" rel="noopener" href="https://developer.qualcomm.com/forum/qdn-forums/software/qualcomm-neural-processing-sdk/70327">高通论坛讨论</a></li>
+<li>通用的QNN(Qualcomm Neural Network)，常用在车载，移动，物联网等场景。支持CPU，GPU，HTP(Hexagon Tensor Processor)后端。</li>
+</ul>
+<h3 id="1-4-HTP-Hexagon-Tensor-Processor"><a href="#1-4-HTP-Hexagon-Tensor-Processor" class="headerlink" title="1.4 HTP(Hexagon Tensor Processor)"></a>1.4 <strong>HTP(Hexagon Tensor Processor)</strong></h3><p>Soc上并不存在单独的cdsp，而是将cdsp和HTA(Hexagon Tensor Accelerator)集成起来构成了HTP。</p>
+<h3 id="1-5-高通Soc上可能的计算单元"><a href="#1-5-高通Soc上可能的计算单元" class="headerlink" title="1.5 高通Soc上可能的计算单元"></a>1.5 高通Soc上可能的计算单元</h3><ul>
+<li>CPU, GPU, HTP三种相对通用的计算单元。</li>
+<li>adsp(Audio Digital Signal Processor，音频)</li>
+<li>ISP(Image Signal Processor，图像，包括拍摄、录制、图像处理，如HDR，美颜，人脸识别等)</li>
+<li>SLPI(Sensor Low Power Island，传感器数据，包括运动检测，姿态估计，手势识别等)</li>
+<li>Modem&#x2F;MDSP(调制解调器，处理网络无线通信)</li>
+</ul>
+<h3 id="1-6-1-总线结构"><a href="#1-6-1-总线结构" class="headerlink" title="1.6.1 总线结构"></a>1.6.1 总线结构</h3><p>Soc是多总线结构的，根据newBing对问题“在骁龙870上，CPU，GPU，adsp和cdsp是连接在同一条总线上的吗？请介绍一下这条总线的情况”的回答：</p>
+<blockquote>
+<p>在骁龙870上，CPU，GPU，adsp和cdsp不是连接在同一条总线上的，它们是通过不同的接口和总线来进行通信和协作的。这些接口和总线的情况如下：<br>CPU和GPU之间通过一个叫做NoC（Network on Chip）的高速总线来进行通信和协作。NoC是一个分布式的网络结构，它可以实现多个处理器之间的高效数据传输和同步1。<br>CPU和adsp之间通过一个叫做ADSPSS（Audio DSP Subsystem）的接口来进行通信和协作。ADSPSS是一个专门用于音频处理的子系统，它包括一个音频编解码器，一个音频处理器，一个音频总线等2。<br>CPU和cdsp之间通过一个叫做Q6SS（Qualcomm Hexagon Subsystem）的接口来进行通信和协作。Q6SS是一个专门用于计算密集型任务的子系统，它包括一个标量单元，一个矢量单元，一个张量加速器等3。<br>GPU和adsp之间通过一个叫做ADSPSS-AXI（Audio DSP Subsystem Advanced eXtensible Interface）的总线来进行通信和协作。ADSPSS-AXI是一个基于AXI协议的总线，它可以实现GPU和adsp之间的高速数据传输。<br>GPU和cdsp之间通过一个叫做Q6SS-AXI（Qualcomm Hexagon Subsystem Advanced eXtensible Interface）的总线来进行通信和协作。Q6SS-AXI是一个基于AXI协议的总线，它可以实现GPU和cdsp之间的高速数据传输。</p>
+</blockquote>
+<h3 id="1-6-2-一致性保证"><a href="#1-6-2-一致性保证" class="headerlink" title="1.6.2 一致性保证"></a>1.6.2 一致性保证</h3><p>依然是newBing的回答，问题是“从内存和闪存中读取到的数据，是如何在多条总线间保持内容和时间一致性的呢？”</p>
+<blockquote>
+<p>从内存和闪存中读取到的数据，在多条总线间保持内容和时间一致性的方法有以下几种：<br>使用缓存一致性协议，如MESI（Modified, Exclusive, Shared, Invalid）或MOESI（Modified, Owned, Exclusive, Shared, Invalid），来保证不同处理器之间缓存中数据的一致性。<br>使用内存屏障或内存栅栏指令，如DMB（Data Memory Barrier）或DSB（Data Synchronization Barrier），来保证不同处理器之间内存中数据的顺序性。<br>使用原子操作指令，如LDREX（Load Exclusive）或STREX（Store Exclusive），来保证不同处理器之间内存中数据的原子性。</p>
+</blockquote>
+<h3 id="1-x-推荐阅读："><a href="#1-x-推荐阅读：" class="headerlink" title="1.x 推荐阅读："></a>1.x 推荐阅读：</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://yuenshome.space/timeline/2019-04/snpe/">高通神经网络处理引擎SNPE分析与评测</a>: 本文回顾了高通和骁龙处理器的发展历史，介绍了详尽的背景知识，包含系列Soc的架构和诸多参数，十分赞，看了看发现作者也是大佬，佩服。</li>
+</ul>
+<h2 id="2-设备参数"><a href="#2-设备参数" class="headerlink" title="2. 设备参数"></a>2. 设备参数</h2><table>
+<thead>
+<tr>
+<th>adsp指标</th>
+<th>骁龙870</th>
+<th>SA8295</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hexagon</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>L1缓存</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>L2缓存</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>L3缓存</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DDR内存</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>基础频率</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>加速频率</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>功耗</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>线程数</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="3-Hexagon-SDK获取"><a href="#3-Hexagon-SDK获取" class="headerlink" title="3. Hexagon SDK获取"></a>3. Hexagon SDK获取</h2><p>推荐使用tvm提供的 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/tlcpack/ci-hexagon/tags">非官方镜像</a>，包含了sdk，Android ndk，tvm，llvm for hexagon等等依赖。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tlcpack/ci-hexagon:20230504-142417-4d37a0a0</span><br></pre></td></tr></table></figure>
+
+<p>所需的工具链都在&#x2F;opt下，包含了Android-sdk, clang-llvm, 和qualcomm&#x2F;hexagon_sdk。<br>接下来，我们利用这些工具链，在骁龙870的adsp芯片上打印”Hello World”</p>
+<h2 id="4-adsp上的Hello-World"><a href="#4-adsp上的Hello-World" class="headerlink" title="4. adsp上的Hello World"></a>4. adsp上的Hello World</h2><h2 id="5-HVX指令集调用"><a href="#5-HVX指令集调用" class="headerlink" title="5. HVX指令集调用"></a>5. HVX指令集调用</h2><h2 id="6-tvm-for-hexagon-adsp"><a href="#6-tvm-for-hexagon-adsp" class="headerlink" title="6. tvm for hexagon-adsp"></a>6. tvm for hexagon-adsp</h2>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 教程</a>
+              <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 环境配置</a>
+              <a href="/tags/jidu/" rel="tag"><i class="fa fa-tag"></i> jidu</a>
+              <a href="/tags/hexagon/" rel="tag"><i class="fa fa-tag"></i> hexagon</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/07/13/learn_go/" rel="next" title="从零开始的Go语言笔记">
+                  从零开始的Go语言笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lpdink</span>
+</div>
+  <div class="powered-by">感谢 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 提供博客支持！
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+
+</body>
+</html>
