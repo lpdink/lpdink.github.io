@@ -1,7 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 
-const theme = ref(document.documentElement.getAttribute('data-theme') || 'light')
+const theme = ref(
+  typeof document !== 'undefined'
+    ? document.documentElement.getAttribute('data-theme') || 'light'
+    : 'light'
+)
 
 function toggle() {
   theme.value = theme.value === 'dark' ? 'light' : 'dark'

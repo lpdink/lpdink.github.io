@@ -1,6 +1,5 @@
 ---
 title: 配置参考
-date: 2024-08-07
 tags: [wing-agent, 文档]
 ---
 

@@ -6,7 +6,9 @@
   "description": "lpdink.github.io — a Vue-powered static blog & portfolio on GitHub Pages",
   "scripts": {
     "dev": "vite",
+    "predev": "node scripts/gen-dates.mjs",
     "build": "vite build",
+    "prebuild": "node scripts/gen-dates.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,6 +1,5 @@
 ---
 title: HTTP API 与 WebSocket 协议
-date: 2024-08-07
 tags: [wing-agent, 文档]
 ---
 

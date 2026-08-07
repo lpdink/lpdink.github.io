@@ -1,6 +1,5 @@
 ---
 title: 自定义工具与 Hooks
-date: 2024-08-07
 tags: [wing-agent, 文档]
 ---
 

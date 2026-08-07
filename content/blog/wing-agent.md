@@ -1,6 +1,6 @@
 ---
 title: wing-agent：迈向通用 agent 运行时
-date: 2024-08-07
+date: 2026-08-07
 tags: [wing-agent, AI, 开源]
 description: 我一直在打磨的一个实验项目：一个对「上下文」极其吝啬的通用 agent 运行时。
 ---

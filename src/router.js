@@ -9,7 +9,7 @@ import TagsIndex from './views/TagsIndex.vue'
 const home = pages.find((p) => p.url === '/')
 const otherPages = pages.filter((p) => p.url !== '/')
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'home',
@@ -24,20 +24,26 @@ const routes = [
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) return savedPosition
-    if (to.hash) return { el: to.hash, behavior: 'smooth' }
-    return { top: 0 }
-  }
-})
+export function createAppRouter(history) {
+  return createRouter({
+    history,
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) return savedPosition
+      if (to.hash) return { el: to.hash, behavior: 'smooth' }
+      return { top: 0 }
+    }
+  })
+}
+
+const router = typeof window !== 'undefined' ? createAppRouter(createWebHistory()) : null
 
 // Update document title on navigation
-router.afterEach((to) => {
-  const post = posts.find((p) => to.path === p.url)
-  document.title = post ? `${post.title} · lpdink` : 'lpdink · 独立开发者的后院'
-})
+if (router) {
+  router.afterEach((to) => {
+    const post = posts.find((p) => to.path === p.url)
+    document.title = post ? `${post.title} · lpdink` : 'lpdink · 独立开发者的后院'
+  })
+}
 
 export default router

@@ -22,10 +22,6 @@ defineProps({
 
 <style scoped>
 .toc {
-  position: sticky;
-  top: 84px;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
   border-left: 1px solid var(--border);
   padding-left: 16px;
 }

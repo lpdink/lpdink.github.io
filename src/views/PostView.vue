@@ -31,7 +31,8 @@ function formatDate(d) {
       <header class="post-head">
         <h1 class="post-title">{{ post.title }}</h1>
         <div class="post-meta">
-          <span v-if="post.date" class="meta-date">{{ formatDate(post.date) }}</span>
+          <span v-if="post.date" class="meta-date">发布于 {{ formatDate(post.date) }}</span>
+          <span v-if="post.updated" class="meta-updated">更新于 {{ formatDate(post.updated) }}</span>
           <span class="meta-tags">
             <router-link v-for="t in post.tags" :key="t" class="tag" :to="'/tags'">
               # {{ t }}
@@ -77,6 +78,20 @@ function formatDate(d) {
   margin: 0 auto;
 }
 
+/* Sticky columns: stick relative to the viewport while the article scrolls,
+   with a solid background so nothing overlaps unreadably. */
+.post-sidebar,
+.post-toc-col {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+  max-height: calc(100vh - 104px);
+  overflow-y: auto;
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 4px;
+}
+
 .post-head {
   margin-bottom: 32px;
 }
@@ -102,6 +117,11 @@ function formatDate(d) {
 .meta-tags {
   display: flex;
   gap: 10px;
+}
+
+.meta-updated {
+  color: var(--accent);
+  font-size: 0.85rem;
 }
 
 .tag {
