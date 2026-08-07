@@ -1,0 +1,110 @@
+---
+title: wing-agent
+date: 2024-08-07
+tags: [wing-agent, 文档]
+---
+
+
+<p align="center">
+  <strong>迈向通用 agent 运行时。</strong>
+</p>
+
+**[English](../../README.md)**
+
+> **⚠️ 实验阶段** — v1.0 之前可能包含 breaking change。
+
+## 为什么选择 wing？
+
+**不在上下文中施加魔法。** 我们从不注入隐藏的系统提示词。你看到的就是模型看到的——你的 system prompt、你的工具、你的对话。没有多余的东西。
+
+**理论最高缓存命中率。** 我们承诺达到理论最高的 prompt 缓存命中率。除了压缩，绝不主动破坏缓存前缀。
+
+**极简工具 schema。** 内置工具使用最简化的 schema。上下文窗口初始工具开销不超过 2K tokens——而不是 10K。
+
+## 快速开始
+
+```bash
+pip install wing-agent
+wing
+```
+
+首次运行时，wing 会在 `~/.wing/core/config.yaml` 创建配置模板并退出。打开它，填入你的 **provider、密钥与模型**：
+
+```yaml
+openai:
+  base_url: "https://your-api-endpoint/v1"   # ← 你的 API 地址
+  api_key: "sk-xxx"                          # ← 你的密钥
+
+agents:
+  - name: default
+    model: "gpt-4o"                          # ← 你的模型
+    default: true
+    tools: [Bash, Read, Write, Edit, Glob, Grep, AskUserQuestion, TodoWrite, Explorer]
+```
+
+然后启动 wing：
+
+```bash
+wing stop    # 如果 Gateway 已在运行，先停掉
+wing         # 重新启动
+```
+
+> **注意：** Gateway 仅在启动时加载配置。修改 `config.yaml` 后，在 TUI 中执行 `/reload`（或 `wing stop` 再 `wing`）以加载新配置。
+
+## 配置
+
+后端配置：`~/.wing/core/config.yaml`
+前端配置：`~/.wing/tui/config.yaml`
+
+完整参考：**[docs/zh/config.md](config.md)**
+
+## 内置工具
+
+| 工具 | 说明 |
+|------|------|
+| `Bash` | 执行 shell 命令（含安全审查） |
+| `Read` | 读取文件内容（支持行范围） |
+| `Write` | 创建或覆写文件 |
+| `Edit` | 精准字符串替换 |
+| `Glob` | 按模式查找文件 |
+| `Grep` | 正则搜索文件内容 |
+| `AskUserQuestion` | 向用户提问 |
+| `TodoWrite` | 跟踪任务进度 |
+| `Explorer` | 自主代码探索子 agent（可阻塞或后台运行） |
+| `BetterEdit` | 锚定 `[upto]` 编辑（实验性） |
+
+自定义工具：**[docs/zh/custom-tools.md](custom-tools.md)**
+
+## 魔术命令
+
+在 TUI 中输入 `/` 查看可用命令。
+
+完整参考：**[docs/zh/magic-commands.md](magic-commands.md)**
+
+## 无头模式（stdio）
+
+`wing` 也能以兼容 Claude Code 的 stdio 协议无头运行——把 `wing` alias 为 `claude` 即可接入外部编排层，或在脚本中直接驱动：
+
+```bash
+wing -p "列出当前目录的文件"                    # text（默认）：仅输出最终结果
+wing -p "列出文件" --output-format json         # 单个 result JSON 对象
+wing -p "列出文件" --output-format stream-json  # 实时 NDJSON 流
+```
+
+常用参数：`-m/--model`、`-r/--resume`、`--system-prompt`、`--append-system-prompt`、`--max-turns`、`--effort`、`--input-format`、`--yolo`。为兼容 Claude，未识别的 `--xxx` 参数会被静默忽略。
+
+## 文档
+
+| 文档 | English | 中文 |
+|------|---------|------|
+| 配置 | [docs/en/config.md](../en/config.md) | [docs/zh/config.md](config.md) |
+| 自定义工具 | [docs/en/custom-tools.md](../en/custom-tools.md) | [docs/zh/custom-tools.md](custom-tools.md) |
+| 魔术命令 | [docs/en/magic-commands.md](../en/magic-commands.md) | [docs/zh/magic-commands.md](magic-commands.md) |
+
+## 开发
+
+从 **[AGENTS.md](../../AGENTS.md)** 开始（高信息密度的项目总览）。需要机制级细节（数据流、完整 HTTP API、术语表）请读 **[docs/dev/](../dev/)**。
+
+## 许可证
+
+[Apache-2.0](../../LICENSE)

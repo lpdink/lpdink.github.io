@@ -1,0 +1,23 @@
+{
+  "name": "lpdink-github-io",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "lpdink.github.io — a Vue-powered static blog & portfolio on GitHub Pages",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "highlight.js": "^11.9.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-anchor": "^9.0.0",
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "vite": "^5.4.0"
+  }
+}
