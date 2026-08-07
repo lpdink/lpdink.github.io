@@ -47,9 +47,11 @@ npm run preview  # 预览构建产物
 
 ## 部署
 
-GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 后自动构建并部署到 GitHub Pages。
+GitHub Actions（`.github/workflows/deploy.yml`）在 push 到 `main` 后自动构建，并把构建产物发布到仓库根目录（`index.html` + `assets/`），同时上传 `dist` 工件。
 
-> 首次部署需在 **仓库 Settings → Pages → Source** 选择 **GitHub Actions**。
+所以 GitHub Pages 的 **Source** 无论设为 **「Deploy from a branch (main / root)」** 还是 **「GitHub Actions」**，站点都能正常显示，无需额外配置。站名用的是默认子域名 `lpdink.github.io`。
+
+> 注意：源码入口在 `src/index.html`，`npm run dev` 会用它；仓库根目录的 `index.html` 是构建产物，由 CI 自动生成，不要手动编辑。
 
 ## 技术栈
 

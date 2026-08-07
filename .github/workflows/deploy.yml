@@ -1,12 +1,19 @@
-name: Deploy to GitHub Pages
+name: Build & Deploy
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'content/**'
+      - 'src/**'
+      - 'scripts/**'
+      - 'package*.json'
+      - 'vite.config.js'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -20,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -33,6 +42,25 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Publish the built site to the repo root so GitHub Pages works even when
+      # the source is set to "Deploy from a branch (main / root)".
+      - name: Publish build to repo root
+        run: |
+          cp -f dist/index.html index.html
+          rm -rf assets && cp -r dist/assets ./assets
+          cp -f dist/favicon.svg favicon.svg
+          cp -f dist/404.html 404.html
+          if [ -n "$(git status --porcelain -- index.html assets favicon.svg 404.html)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html assets favicon.svg 404.html
+            git commit -m "build: publish site to repo root [skip ci]"
+            git push
+          else
+            echo "no changes to publish"
+          fi
+
+      # Also publish the dist artifact for the "GitHub Actions" Pages source.
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
