@@ -4,6 +4,10 @@ import PostView from './views/PostView.vue'
 import BlogIndex from './views/BlogIndex.vue'
 import DocsIndex from './views/DocsIndex.vue'
 import TagsIndex from './views/TagsIndex.vue'
+import GamesIndex from './views/GamesIndex.vue'
+import Tetris from './games/Tetris.vue'
+import Snake from './games/Snake.vue'
+import Fish from './games/Fish.vue'
 
 // Home landing comes from content/index.vue (the brand showcase)
 const home = pages.find((p) => p.url === '/')
@@ -20,6 +24,10 @@ export const routes = [
   { path: '/docs', name: 'docs', component: DocsIndex },
   { path: '/docs/:pathMatch(.*)*', name: 'doc', component: PostView },
   { path: '/tags', name: 'tags', component: TagsIndex },
+  { path: '/games', name: 'games', component: GamesIndex },
+  { path: '/games/tetris', name: 'tetris', component: Tetris },
+  { path: '/games/snake', name: 'snake', component: Snake },
+  { path: '/games/fish', name: 'fish', component: Fish },
   ...otherPages.map((p) => ({ path: p.url, component: p.component })),
   { path: '/:pathMatch(.*)*', redirect: '/' }
 ]

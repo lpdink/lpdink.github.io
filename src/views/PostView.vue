@@ -67,14 +67,14 @@ function formatDate(d) {
   margin: 0 auto;
   padding: 40px 24px 0;
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) 220px;
-  gap: 40px;
+  grid-template-columns: 200px minmax(0, 1fr) 240px;
+  column-gap: 48px;
   align-items: start;
 }
 
 .post {
   min-width: 0;
-  max-width: 720px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -90,6 +90,11 @@ function formatDate(d) {
   background: var(--bg);
   border-radius: 12px;
   padding: 4px;
+}
+
+/* Extra breathing room so the TOC never touches the article. */
+.post-toc-col {
+  padding-left: 12px;
 }
 
 .post-head {
