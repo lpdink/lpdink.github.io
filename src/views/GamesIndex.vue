@@ -17,12 +17,12 @@ const games = [
     color: '#3a7bd5'
   },
   {
-    to: '/games/fish',
-    name: '大鱼吃小鱼',
-    en: 'Big Fish Eat Small Fish',
-    desc: '操控你的鱼去吃更小的鱼长大，避开比你大的鱼。',
-    icon: '🐟',
-    color: '#c08b2e'
+    to: '/games/farm',
+    name: '像素农场 · 75 秒',
+    en: 'Pixel Harvest',
+    desc: '一局 75 秒：播种、浇水、抢收，连击加分；还得跑去鸡舍打水、顺手抓鸡。精灵来自站内 AI 画室。',
+    icon: '🌾',
+    color: '#3f8f4f'
   }
 ]
 </script>
