@@ -48,12 +48,17 @@ jobs:
         run: |
           cp -f dist/index.html index.html
           rm -rf assets && cp -r dist/assets ./assets
+          # 静态图片（src/public/* 会被 vite 原样拷进 dist）也要同步，否则
+          # Pages 走 "Deploy from a branch (main / root)" 时图片会 404
+          if [ -d dist/images ]; then
+            rm -rf images && cp -r dist/images ./images
+          fi
           cp -f dist/favicon.svg favicon.svg
           cp -f dist/404.html 404.html
-          if [ -n "$(git status --porcelain -- index.html assets favicon.svg 404.html)" ]; then
+          if [ -n "$(git status --porcelain -- index.html assets images favicon.svg 404.html)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add index.html assets favicon.svg 404.html
+            git add index.html assets images favicon.svg 404.html
             git commit -m "build: publish site to repo root [skip ci]"
             git push
           else

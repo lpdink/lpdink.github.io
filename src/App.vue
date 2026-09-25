@@ -11,7 +11,8 @@ const links = [
   { to: '/blog', label: '博客' },
   { to: '/docs', label: '文档' },
   { to: '/tags', label: '标签' },
-  { to: '/games', label: '游戏' }
+  { to: '/games', label: '游戏' },
+  { to: '/ai-art', label: 'AI 画室' }
 ]
 
 function isActive(to) {
