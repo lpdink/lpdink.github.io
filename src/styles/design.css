@@ -1,0 +1,325 @@
+/* ============================================================
+   design.css — rich blocks for /design docs (raw HTML in Markdown).
+
+   The markdown pipeline passes HTML through verbatim, so these classes
+   are global (not scoped) and are used by `content/design/*.md`:
+   figures (dsg-fig), stats strips (dsg-stats), callouts (dsg-callout),
+   chips (dsg-chip), two-column compare grids (dsg-grid2), timeline
+   (dsg-tl), inline code highlighting (dsg-dup / dsg-add), and the
+   semantic classes used inside inline SVG diagrams (bx / tt / tm / ln…).
+   ============================================================ */
+
+:root {
+  --dsg-bad: #cf6b5f;
+  --dsg-warn: #c99b4c;
+  --dsg-info: #5b8fc9;
+  --dsg-ok: #3f9d6f;
+}
+:root[data-theme='dark'] {
+  --dsg-bad: #e08b80;
+  --dsg-warn: #dfb56e;
+  --dsg-info: #8ab4e0;
+  --dsg-ok: #6fc99b;
+}
+
+/* ---------- figures ---------- */
+.dsg-fig {
+  margin: 1.8em 0;
+  padding: 20px 20px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.dsg-fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.dsg-cap {
+  margin: 12px 6px 2px;
+  font-size: 0.84rem;
+  color: var(--text-faint);
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* ---------- stats strip ---------- */
+.dsg-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 1.6em 0;
+}
+.dsg-stat {
+  flex: 1 1 150px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.dsg-stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-strong);
+  letter-spacing: -0.01em;
+}
+.dsg-stat span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+.dsg-stat.hot b {
+  color: var(--dsg-bad);
+}
+.dsg-stat.cool b {
+  color: var(--accent);
+}
+
+/* ---------- callouts ---------- */
+.dsg-callout {
+  margin: 1.6em 0;
+  padding: 14px 18px 14px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border-strong);
+  background: var(--surface);
+  font-size: 0.94rem;
+}
+.dsg-callout p {
+  margin: 0.35em 0;
+}
+.dsg-callout .dsg-ct {
+  font-weight: 600;
+  color: var(--text-strong);
+  margin-right: 0.4em;
+}
+.dsg-callout.is-info {
+  border-left-color: var(--dsg-info);
+  background: color-mix(in srgb, var(--dsg-info) 7%, var(--surface));
+}
+.dsg-callout.is-good {
+  border-left-color: var(--dsg-ok);
+  background: color-mix(in srgb, var(--dsg-ok) 8%, var(--surface));
+}
+.dsg-callout.is-warn {
+  border-left-color: var(--dsg-warn);
+  background: color-mix(in srgb, var(--dsg-warn) 9%, var(--surface));
+}
+.dsg-callout.is-bad {
+  border-left-color: var(--dsg-bad);
+  background: color-mix(in srgb, var(--dsg-bad) 8%, var(--surface));
+}
+
+/* ---------- chips ---------- */
+.dsg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1em 0;
+}
+.dsg-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.dsg-chip.is-accent {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* ---------- two-column compare grid ---------- */
+.dsg-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 1.6em 0;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .dsg-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+.dsg-grid2 .dsg-col-h {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+}
+.dsg-grid2 pre {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.62;
+  max-height: 560px;
+  overflow: auto;
+}
+
+.dsg-fig pre {
+  margin: 0;
+}
+
+/* line highlights inside <pre> (before/after code) */
+.dsg-dup {
+  background: color-mix(in srgb, var(--dsg-bad) 20%, transparent);
+  border-bottom: 1px dashed var(--dsg-bad);
+}
+.dsg-add {
+  background: color-mix(in srgb, var(--dsg-ok) 18%, transparent);
+}
+.dsg-cmt {
+  color: var(--text-faint);
+}
+.dsg-note {
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+.dsg-note code,
+.dsg-cap code {
+  font-size: 0.92em;
+}
+
+/* ---------- timeline ---------- */
+.post-body .dsg-tl,
+.dsg-tl {
+  list-style: none;
+  padding: 0;
+  margin: 1.4em 0;
+}
+.dsg-tl > li {
+  position: relative;
+  margin: 0 0 0 10px;
+  padding: 2px 0 20px 26px;
+  border-left: 2px solid var(--border-strong);
+}
+.dsg-tl > li:last-child {
+  border-left-color: transparent;
+  padding-bottom: 4px;
+}
+.dsg-tl > li::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.dsg-tl b {
+  color: var(--text-strong);
+}
+.dsg-tl .ph {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  display: inline-block;
+  margin-right: 8px;
+}
+.dsg-tl p {
+  margin: 4px 0 0;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+/* ---------- inline SVG semantics ---------- */
+.dsg-fig .bx {
+  fill: var(--surface-2);
+  stroke: var(--border-strong);
+  stroke-width: 1;
+}
+.dsg-fig .bx-soft {
+  fill: var(--surface);
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.dsg-fig .bx-good {
+  fill: color-mix(in srgb, var(--dsg-ok) 10%, var(--surface));
+  stroke: color-mix(in srgb, var(--dsg-ok) 65%, var(--border));
+  stroke-width: 1;
+}
+.dsg-fig .bx-warn {
+  fill: color-mix(in srgb, var(--dsg-warn) 12%, var(--surface));
+  stroke: color-mix(in srgb, var(--dsg-warn) 65%, var(--border));
+  stroke-width: 1;
+}
+.dsg-fig .bx-bad {
+  fill: color-mix(in srgb, var(--dsg-bad) 12%, var(--surface));
+  stroke: color-mix(in srgb, var(--dsg-bad) 65%, var(--border));
+  stroke-width: 1;
+}
+.dsg-fig .bx-accent {
+  fill: var(--accent-soft);
+  stroke: color-mix(in srgb, var(--accent) 70%, var(--border));
+  stroke-width: 1;
+}
+.dsg-fig .bx-dash {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-dasharray: 6 5;
+  stroke-width: 1.2;
+}
+.dsg-fig text {
+  font-family: var(--font-body);
+  font-size: 13px;
+  fill: var(--text);
+}
+.dsg-fig .tt {
+  font-weight: 600;
+  fill: var(--text-strong);
+  font-size: 13.5px;
+}
+.dsg-fig .tm {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  fill: var(--text-soft);
+}
+.dsg-fig .tm2 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--text-faint);
+}
+.dsg-fig .ts {
+  font-size: 11.5px;
+  fill: var(--text-faint);
+}
+.dsg-fig .ta {
+  fill: var(--accent);
+  font-weight: 600;
+}
+.dsg-fig .tbad {
+  fill: var(--dsg-bad);
+  font-weight: 600;
+}
+.dsg-fig .twarn {
+  fill: var(--dsg-warn);
+  font-weight: 600;
+}
+.dsg-fig .tg {
+  fill: var(--dsg-ok);
+  font-weight: 600;
+}
+.dsg-fig .ln {
+  stroke: var(--text-faint);
+  stroke-width: 1.4;
+  fill: none;
+}
+.dsg-fig .ln-dash {
+  stroke: var(--text-faint);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 4;
+  fill: none;
+}
+.dsg-fig marker path {
+  fill: var(--text-faint);
+}

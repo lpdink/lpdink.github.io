@@ -3,8 +3,13 @@ import { computed } from 'vue'
 import { posts } from '../content.js'
 import DocNode from '../components/DocNode.vue'
 
-// docs = everything not under /blog
-const docs = computed(() => posts.filter((p) => !p.url.startsWith('/blog')))
+// docs = everything not under /blog or /design (design has its own tab)
+const docs = computed(
+  () =>
+    posts.filter(
+      (p) => !p.url.startsWith('/blog') && !p.url.startsWith('/design')
+    )
+)
 
 // group docs by their directory structure for a tree-ish listing
 const tree = computed(() => {

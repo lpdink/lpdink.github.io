@@ -26,7 +26,12 @@ const tree = computed(() => {
     for (const n of names) {
       out.push({ type: 'group', name: n, children: fold(node.children[n]) })
     }
-    const sorted = [...node.posts].sort((a, b) => a.title.localeCompare(b.title, 'zh'))
+    // Design docs read as a numbered series: keep the declared `order`
+    // (fallback: given order = date desc). Other sections sort by title.
+    const sorted =
+      props.section === 'design'
+        ? [...node.posts].sort((a, b) => (a.order || 99) - (b.order || 99))
+        : [...node.posts].sort((a, b) => a.title.localeCompare(b.title, 'zh'))
     for (const p of sorted) out.push({ ...p, type: 'post' })
     return out
   }
@@ -34,7 +39,7 @@ const tree = computed(() => {
 })
 
 const label = computed(() => {
-  const map = { blog: '博客', docs: '文档', notes: '笔记' }
+  const map = { blog: '博客', docs: '文档', notes: '笔记', design: '方案设计' }
   return map[props.section] || props.section || '目录'
 })
 </script>

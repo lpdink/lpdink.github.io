@@ -3,6 +3,7 @@ import { pages, posts } from './content.js'
 import PostView from './views/PostView.vue'
 import BlogIndex from './views/BlogIndex.vue'
 import DocsIndex from './views/DocsIndex.vue'
+import DesignIndex from './views/DesignIndex.vue'
 import TagsIndex from './views/TagsIndex.vue'
 import GamesIndex from './views/GamesIndex.vue'
 import Tetris from './games/Tetris.vue'
@@ -23,6 +24,8 @@ export const routes = [
   { path: '/blog/:slug', name: 'post', component: PostView },
   { path: '/docs', name: 'docs', component: DocsIndex },
   { path: '/docs/:pathMatch(.*)*', name: 'doc', component: PostView },
+  { path: '/design', name: 'design', component: DesignIndex },
+  { path: '/design/:pathMatch(.*)*', name: 'designDoc', component: PostView },
   { path: '/tags', name: 'tags', component: TagsIndex },
   { path: '/games', name: 'games', component: GamesIndex },
   { path: '/games/tetris', name: 'tetris', component: Tetris },

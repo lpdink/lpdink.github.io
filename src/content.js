@@ -70,6 +70,17 @@ function deriveTitle(body) {
 }
 
 // ---- build manifest ---------------------------------------------------
+// Design-doc status vocabulary (frontmatter `status`): shown as chips on the
+// /design index and on PostView. Unknown values fall back to the raw value.
+const STATUS = {
+  draft: '草稿',
+  proposed: '待评审',
+  accepted: '已采纳',
+  implementing: '落地中',
+  done: '已落地',
+  superseded: '已被取代'
+}
+
 const posts = []
 for (const [absPath, raw] of Object.entries(mdModules)) {
   const rel = absPath.replace('../content/', '').replace(/\.md$/, '')
@@ -92,6 +103,9 @@ for (const [absPath, raw] of Object.entries(mdModules)) {
     updated,
     tags,
     description: meta.description || '',
+    // Design docs only: review status chip + manual ordering (series).
+    status: meta.status || '',
+    order: meta.order ? Number(meta.order) || 0 : 0,
     body,
     raw,
     section: segments[0] === 'index' ? '' : segments[0]
@@ -181,4 +195,4 @@ function postsInSection(section) {
   return posts.filter((p) => p.section === section)
 }
 
-export { posts, pages, tags, tagMap, navTree, findPost, siblingsOf, postsInSection, parseFrontmatter }
+export { posts, pages, tags, tagMap, navTree, findPost, siblingsOf, postsInSection, parseFrontmatter, STATUS }

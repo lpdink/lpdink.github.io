@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { findPost, siblingsOf, posts } from '../content.js'
+import { findPost, siblingsOf, posts, STATUS } from '../content.js'
 import { renderMarkdown, extractToc } from '../markdown.js'
 import Sidebar from '../components/Sidebar.vue'
 import Toc from '../components/Toc.vue'
@@ -13,6 +13,10 @@ const html = computed(() => (post.value ? renderMarkdown(post.value.body) : ''))
 const toc = computed(() => (post.value ? extractToc(post.value.body) : []))
 const siblings = computed(() => (post.value ? siblingsOf(route.path) : []))
 const section = computed(() => (post.value ? post.value.section : ''))
+const statusLabel = computed(() => {
+  const s = post.value && post.value.status
+  return s ? STATUS[s] || s : ''
+})
 
 function formatDate(d) {
   if (!d) return ''
@@ -31,6 +35,7 @@ function formatDate(d) {
       <header class="post-head">
         <h1 class="post-title">{{ post.title }}</h1>
         <div class="post-meta">
+          <span v-if="statusLabel" class="meta-status" :class="'st-' + post.status">{{ statusLabel }}</span>
           <span v-if="post.date" class="meta-date">发布于 {{ formatDate(post.date) }}</span>
           <span v-if="post.updated" class="meta-updated">更新于 {{ formatDate(post.updated) }}</span>
           <span class="meta-tags">
@@ -117,6 +122,43 @@ function formatDate(d) {
   flex-wrap: wrap;
   color: var(--text-faint);
   font-size: 0.9rem;
+}
+
+/* Design-doc review status chip (frontmatter `status`) */
+.meta-status {
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid;
+}
+.meta-status.st-draft {
+  color: var(--text-soft);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+.meta-status.st-proposed {
+  color: #a97a1c;
+  border-color: #d9b25e;
+  background: color-mix(in srgb, #d9b25e 16%, transparent);
+}
+.meta-status.st-accepted,
+.meta-status.st-implementing {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: var(--accent-soft);
+}
+.meta-status.st-done {
+  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.meta-status.st-superseded {
+  color: var(--text-faint);
+  border-color: var(--border);
+  background: transparent;
+  text-decoration: line-through;
 }
 
 .meta-tags {

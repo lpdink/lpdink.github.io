@@ -21,6 +21,8 @@ content/
     welcome.md       →  /blog/welcome   （Markdown 文章）
   docs/
     zh/config.md     →  /docs/zh/config
+  design/
+    session-format.md →  /design/session-format  （方案设计 / RFC）
 ```
 
 每篇 Markdown 顶部可写 frontmatter：
@@ -35,6 +37,18 @@ description: 一句话摘要
 ```
 
 正文用标准 Markdown 即可，代码块自动高亮。
+
+### 方案设计（/design）
+
+`content/design/` 下的文档会自动出现在 **「设计」** 标签页（RFC 列表 + 侧栏）里，
+适合放数据模型、协议、产品面的方案设计。在通用 frontmatter 之外还支持：
+
+- `status`：评审状态，显示为彩色徽章。取值：`draft` / `proposed` / `accepted` / `implementing` / `done` / `superseded`
+- `order`：同系列内的排序（越小越靠前）
+- 放进子目录（如 `content/design/data-model/xx.md`）即归入一个系列分组
+
+正文里可以直接写 HTML（`<figure>` / `<svg>` 等），配合 `src/styles/design.css`
+的 `dsg-*` 工具类画图（数据条、对比网格、提示块、时间线等）。
 
 ## 本地开发
 
