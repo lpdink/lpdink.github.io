@@ -24,18 +24,27 @@ description: 从"手写默认配置字符串"到"每个配置项自描述"：一
 **死结一：同一份知识，维护两遍。** 默认值和文档文案，在两个文件里各写一遍：
 
 <figure class="dsg-fig">
-<pre><code>default_config.py（247 行手写 YAML 字符串）           models.py（383 行 pydantic 模型）
-┌──────────────────────────────────────┐            ┌──────────────────────────────────────┐
-│ # 流式首块超时（秒）。                 │            │ timeout_first_chunk: float = 300.0   │
-│ timeout_first_chunk: 300.0           │    ≡       │ """流式首块超时（秒）。"""            │
-│                                      │            │                                      │
-│ # SYNC: If Config gains new fields,  │            │ # SYNC: Keep this file in sync with  │
-│ # this template must be updated      │            │ # default_config.py …                │
-│ # manually.                          │            │                                      │
-└──────────────────────────────────────┘            └──────────────────────────────────────┘
-        注释 + 默认值 + 示例                                默认值 + 校验 + docstring
-</code></pre>
-<figcaption class="dsg-cap">两个文件互为镜像、各自标注"记得同步" —— 加一个配置项要动两处，漏一处就漂移。</figcaption>
+<div class="dsg-grid2">
+<div>
+<p class="dsg-col-h">default_config.py · 247 行</p>
+<pre><code># 流式首块超时（秒）。
+timeout_first_chunk: 300.0
+&#160;
+# SYNC: If Config gains new fields,
+# this template must be updated
+# manually.</code></pre>
+</div>
+<div>
+<p class="dsg-col-h">models.py · 383 行</p>
+<pre><code>timeout_first_chunk: float = 300.0
+"""流式首块超时（秒）。"""
+&#160;
+# SYNC: Keep this file in sync with
+# default_config.py when adding or
+# removing fields.</code></pre>
+</div>
+</div>
+<figcaption class="dsg-cap">两个文件互为镜像：同一份默认值与文档，一个活在字符串里被人类读，一个活在模型里被机器读；两边都标注"记得同步"。加一个配置项要动两处，漏一处就漂移。</figcaption>
 </figure>
 
 **死结二：没有机器可读的设置面。** 配置的全部"元信息"都锁在人类读的文本里：
