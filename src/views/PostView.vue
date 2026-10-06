@@ -68,7 +68,7 @@ function formatDate(d) {
 
 <style scoped>
 .post-layout {
-  max-width: 1180px;
+  max-width: var(--maxw);
   margin: 0 auto;
   padding: 40px 24px 0;
   display: grid;
@@ -79,6 +79,10 @@ function formatDate(d) {
 
 .post {
   min-width: 0;
+  /* Fill the (1fr) track. Without an explicit width, the auto margins below
+     disable grid stretch and the item sizes to its content, overflowing the
+     track — text then slides under the sticky TOC. */
+  width: 100%;
   max-width: 700px;
   margin: 0 auto;
 }

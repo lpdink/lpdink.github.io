@@ -53,6 +53,7 @@
 }
 .dsg-stat {
   flex: 1 1 150px;
+  min-width: 0;
   padding: 14px 18px;
   border-radius: 14px;
   background: var(--surface);
@@ -139,10 +140,17 @@
 /* ---------- two-column compare grid ---------- */
 .dsg-grid2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr): allow tracks to shrink below their content's min-content
+     width — otherwise a <pre> with long lines blows the grid out of the
+     article column and text slides under the sticky TOC. The pre scrolls
+     internally instead. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px;
   margin: 1.6em 0;
   align-items: start;
+}
+.dsg-grid2 > * {
+  min-width: 0;
 }
 @media (max-width: 900px) {
   .dsg-grid2 {

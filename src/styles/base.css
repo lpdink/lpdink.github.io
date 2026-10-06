@@ -12,7 +12,7 @@
     monospace;
 
   --radius: 14px;
-  --maxw: 1180px;
+  --maxw: 1280px;
   --shadow: 0 10px 30px rgba(30, 60, 40, 0.08);
   --shadow-lg: 0 24px 60px rgba(30, 60, 40, 0.16);
 }

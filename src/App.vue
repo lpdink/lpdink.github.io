@@ -106,7 +106,7 @@ onMounted(() => {
 }
 
 .topbar-inner {
-  max-width: 1180px;
+  max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 24px;
   height: 60px;
@@ -194,7 +194,7 @@ onMounted(() => {
 }
 
 .footer-inner {
-  max-width: 1180px;
+  max-width: var(--maxw);
   margin: 0 auto;
   padding: 28px 24px;
   display: flex;
