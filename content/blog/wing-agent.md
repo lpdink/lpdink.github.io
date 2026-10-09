@@ -91,6 +91,8 @@ wing -p "list files" --output-format stream-json    # 实时 NDJSON 流
 - [魔法命令](/docs/zh/magic-commands)
 - [自定义工具](/docs/zh/custom-tools)
 
+> 延伸阅读：我们怎么把项目越改越对 AI 友好——演示页《[让 AI 自己坐到 TUI 面前](/agent-friendly)》与方案《[tui-probe 体验测试台](/design/tui-probe)》。
+
 ## 状态
 
 **实验阶段** ⚠️ —— 期待你用，也期待你的反馈。Breaking change 会提前说明。

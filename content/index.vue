@@ -100,6 +100,7 @@ function tagColor(i) {
 
         <div class="project-actions">
           <router-link to="/blog/wing-agent" class="btn btn-primary">阅读介绍</router-link>
+          <router-link to="/agent-friendly" class="btn btn-ghost">Agent 友好化</router-link>
           <a href="https://github.com/lpdink/wing-agent" target="_blank" rel="noopener" class="btn btn-ghost">
             GitHub ↗
           </a>

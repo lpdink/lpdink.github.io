@@ -70,8 +70,10 @@ function formatDate(d) {
         <span class="chip">生成与投影，不复制</span>
       </div>
       <p class="brief-note">
-        本期两案一起立地基：<b>存储面</b>（Session 数据模型：同一份历史只存一遍）与
-        <b>设置面</b>（Config：不再手改配置文件，接口与界面直接改、即时生效）。二者共享上面同一套方法论。
+        第一批两案一起立地基：<b>存储面</b>（Session 数据模型：同一份历史只存一遍）与
+        <b>设置面</b>（Config：不再手改配置文件，接口与界面直接改、即时生效）。
+        新近又立了第三案：<b>测试面</b>（<router-link to="/design/tui-probe">tui-probe</router-link>：让 Agent
+        坐到 TUI 面前，把"用户路径"变成可回归的测试）。三篇共享上面同一套方法论。
       </p>
     </section>
 
